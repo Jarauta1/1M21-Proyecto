@@ -341,6 +341,7 @@ html, body {
     background-color: white;
 }
 
+
 #derecha {
     font-size: 0.95em;
     line-height: 1.4;
@@ -352,7 +353,14 @@ html, body {
     background-color: #a2f7ff;
     font-weight: 300;
 }
-   
+#datos, #clasificacion {
+background-color: white;
+}
+
+#colorClasificacion {
+    width: 5px;
+}
+
 #tableFirst {
     background-color: #a2f7ff;
 }
