@@ -1,3 +1,5 @@
+/* Pagina index */
+
 html, body {
     margin: 0%;
     height: 100%;
@@ -24,7 +26,7 @@ html, body {
 
 @media only screen and (max-width: 900px) {
     html, body {
-        margin: 1%;
+        margin: 0%;
         height: 100%;
     }
     
@@ -48,9 +50,9 @@ html, body {
     }
 }
 
-@media only screen and (max-height: 600px) {
+@media only screen and (max-height: 800px) {
     html, body {
-        margin: 1%;
+        margin: 0%;
         width: 100%;
     }
     
@@ -73,6 +75,9 @@ html, body {
         width: 50%;
     }
     
+    #teamShield {
+        height: 30px;
+    }
 }
 
 .titulo {
@@ -125,6 +130,9 @@ html, body {
 }
 /* Pagina liga */
 
+
+/* Cabecero */
+
 #headerLiga {
     display: flex;
     justify-content: space-between;
@@ -135,14 +143,14 @@ html, body {
 
 #cabecero {
     display: flex;
-    justify-content: space-between;   
+    justify-content: space-around;   
 }
 
 #cabecero a, #cabecero label {
     color: #182a22;
     text-decoration: none;
     font-size: larger;
-    
+    cursor: pointer;
     margin: 0%;
 }
 
@@ -154,13 +162,10 @@ html, body {
 }
 
 #imagen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width:10%;
-    margin:0.5% 0% 0.5% 1%;
-}
-
-#searching {
-    width: 20%;
-    margin:1%;
 }
 
 #cabecero {
@@ -171,7 +176,6 @@ html, body {
 
 #cabecero a:hover, #cabecero label:hover {
     color: #fff;
-    
 }
 
 #teams1 {
@@ -181,7 +185,11 @@ html, body {
 #shields {
     overflow: hidden;
     height: 0px;
-    
+    width: 100%;
+}
+
+#teamShield {
+    height: 40px;
 }
 
 #click input:checked ~ #shields {
@@ -193,70 +201,328 @@ html, body {
     align-items: center;
 }
 
-@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700);
+/* Buscador de contenido */
 
-#searching {
-  align-items: center;
-  display: inline-block;
-  position: relative;
-  height: 60px;
-  float: right;
-  padding: 0;
-  position: relative;
+#search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
 }
 
-input[type="text"] {
-  height: 40px;
-  font-size: 14px;
-  display: inline-block;
-  /* font-family: "Lato"; */
-  font-weight: 10;
-  border: none;
-  outline: none;
-  color: white;
-  padding: 3px;
-  padding-right: 60px;
-  width: 0px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: none;
-  z-index: 3;
-  transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
-  cursor: pointer;
+#ctn-icon-search{
+    position: absolute;
+    right: 20px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
-input[type="text"]:focus:hover {
-  border-bottom: 1px solid #BBB;
+#ctn-icon-search i{
+    font-size: 14px;
+    color: #777777;
+    cursor: pointer;
+    transition: all 300ms;
 }
 
-input[type="text"]:focus {
-  width: 100%;
-  z-index: 1;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.548);
-  cursor: text;
-}
-input[type="submit"] {
-  height: 60px;
-  width: 60px;
-  display: inline-block;
-  color:red;
-  float: right;
-  background: url(../Imagenes/lupa.png) center center no-repeat;
-  background-size: 50% 50%;
-  text-indent: -10000px;
-  border: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 2;
-  cursor: pointer;
-  opacity: 0.4;
-  cursor: pointer;
-  transition: opacity .4s ease;
-  padding: 0;
+#ctn-icon-search i:hover{
+    color: #46a2fd;
 }
 
-input[type="submit"]:hover {
-  opacity: 0.8;
+
+#ctn-bars-search{
+    position: fixed;
+    right: -100000px;
+    width: 40%;
+    background: #fff;
+    
+    transition: all 600ms;
 }
+
+#ctn-bars-search input{
+    display: block;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    font-size: 18px;
+    outline: 0;
+}
+
+#box-search{
+    position: fixed;
+    top: 165px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    background: #fff;
+    overflow: hidden;
+    display: none;
+}
+
+#box-search li a{
+    display: block;
+    width: 80%;
+    color: #777777;
+    padding: 12px 20px;
+}
+
+#box-search li a:hover{
+    background: #f3f3f3;
+}
+
+#box-search li a i{
+    margin-right: 10px;
+    color: #777777;
+}
+
+
+#cover-ctn-search{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    display: none;
+}
+
+/* Tabla resultados */
+
+.top {
+    background-color: green;
+    color: white;
+    font-size: 1.5em;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.header {
+   background-color: #398B93;
+   color: white;
+   font-size: 1.5em;
+   padding: 1rem;
+   text-align: center;
+   text-transform: uppercase;
+}
+
+.table-users {
+   border: 1px solid #398B93;
+   border-radius: 10px;
+   box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+   max-width: calc(100% - 2em);
+   margin: 1em auto;
+   overflow: hidden;
+   width: 90%;
+}
+
+#table {
+   width: 100%;
+}
+
+#table td, #table th { 
+      color: #398B93;
+      padding: 10px; 
+}
+   
+
+
+#centrado {
+    font-size: 0.95em;
+    line-height: 1.4;
+    text-align: center;
+    background-color: white;
+}
+
+#izquierda {
+    font-size: 0.95em;
+    line-height: 1.4;
+    text-align: left;
+    background-color: white;
+}
+
+#derecha {
+    font-size: 0.95em;
+    line-height: 1.4;
+    text-align: right;
+    background-color: white;
+}
+   
+#table th { 
+    background-color: #a2f7ff;
+    font-weight: 300;
+}
+   
+#tableFirst {
+    background-color: #a2f7ff;
+}
+
+/* @media screen and (max-width: 700px) {   
+   table, tr, td { display: block; }
+   
+   td {
+      &:first-child {
+         position: absolute;
+         top: 50%;
+         transform: translateY(-50%);
+         width: $imageBig;
+      }
+
+      &:not(:first-child) {
+         clear: both;
+         margin-left: $imageBig;
+         padding: 4px 20px 4px 90px;
+         position: relative;
+         text-align: left;
+
+         &:before {
+            color: lighten($baseColor, 30%);
+            content: '';
+            display: block;
+            left: 0;
+            position: absolute;
+         }
+      }
+
+      &:nth-child(2):before { content: 'Name:'; }
+      &:nth-child(3):before { content: 'Email:'; }
+      &:nth-child(4):before { content: 'Phone:'; }
+      &:nth-child(5):before { content: 'Comments:'; }
+   }
+   
+   tr {
+      padding: $padding 0;
+      position: relative;
+      &:first-child { display: none; }
+   }
+} */
+
+/* @media screen and (max-width: 500px) {
+   .header {
+      background-color: transparent;
+      color: lighten($baseColor, 60%);
+      font-size: 2em;
+      font-weight: 700;
+      padding: 0;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+   }
+   
+   img {
+      border: 3px solid;
+      border-color: lighten($baseColor, 50%);
+      height: $imageBig;
+      margin: 0.5rem 0;
+      width: $imageBig;
+   }
+   
+   td {
+      &:first-child { 
+         background-color: lighten($baseColor, 45%); 
+         border-bottom: 1px solid lighten($baseColor, 30%);
+         border-radius: $borderRadius $borderRadius 0 0;
+         position: relative;   
+         top: 0;
+         transform: translateY(0);
+         width: 100%;
+      }
+      
+      &:not(:first-child) {
+         margin: 0;
+         padding: 5px 1em;
+         width: 100%;
+         
+         &:before {
+            font-size: .8em;
+            padding-top: 0.3em;
+            position: relative;
+         }
+      }
+      
+      &:last-child  { padding-bottom: 1rem !important; }
+   }
+   
+   tr {
+      background-color: white !important;
+      border: 1px solid lighten($baseColor, 20%);
+      border-radius: $borderRadius;
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+      margin: 0.5rem 0;
+      padding: 0;
+   }
+   
+   .table-users { 
+      border: none; 
+      box-shadow: none;
+      overflow: visible;
+   }
+} */
+
+
+/* Acordeon liga para resultados y clasificacion */
+
+/* Desplegable */
+.seccion {
+    position: relative;
+    margin-bottom: 1px;
+    width: 100%;
+    color: #fff;
+    overflow: hidden;
+  }
+  .seccion input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+  }
+  .seccion label {
+    position: relative;
+    display: block;
+    padding: 0 0 0 1em;
+    background: #16a085;
+    font-weight: bold;
+    line-height: 3;
+    cursor: pointer;
+  }
+  
+  .seccion-content {
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(0, 0, 255, 0.89);
+    -webkit-transition: max-height .35s;
+    -o-transition: max-height .35s;
+    transition: max-height .35s;
+  }
+  
+  .seccion-content p {
+    margin: 1em;
+  }
+  /* Click */
+  .seccion input:checked ~ .seccion-content {
+    max-height: 100vh;
+  }
+  
+  /* + */
+  .seccion label::after {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    width: 3em;
+    height: 3em;
+    line-height: 3;
+    text-align: center;
+    -webkit-transition: all .35s;
+    -o-transition: all .35s;
+    transition: all .35s;
+  }
+  .seccion input[type=checkbox] + label::after {
+    content: "+";
+  }
+  .seccion input[type=radio] + label::after {
+    content: "\25BC";
+  }
+  .seccion input[type=checkbox]:checked + label::after {
+    transform: rotate(315deg);
+  }
+  .seccion input[type=radio]:checked + label::after {
+    transform: rotateX(180deg);
+  }

@@ -1,9 +1,14 @@
+/* Key API */
+let keyAPI = `ca8085723da84292925bffc2a1ffb106`
+
+//Declarando variables
 let seleccion = {}
 let mensaje = ""
 let i
 let liga = "liga"
 let x
 
+//Iconos eleccion liga
 document.getElementById("tarjeta1").innerHTML = `<div id="league">
 <img id="logo" src="./Imagenes/logo Spain.png" width="" height="">
 <hr>
@@ -36,9 +41,9 @@ document.getElementById("tarjeta6").innerHTML = `<div id="league">
 </div>`
 
 
-
+//Funcion para ir a la liga seleccionada
 function entrar(country) {
-    fetch("https://api.sportsdata.io/v3/soccer/scores/json/Areas?key=97f0b074e3b6459480ee0008efaf6d37").then(function (respuesta) {
+    fetch(`https://api.sportsdata.io/v3/soccer/scores/json/Areas?key=${keyAPI}`).then(function (respuesta) {
         return respuesta.json();
     }).then(function (datos) {
         if (country == "Spain") {

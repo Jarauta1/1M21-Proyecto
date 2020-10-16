@@ -15,29 +15,110 @@
                 <div id="imagen"></div>
                 <div id="cabecero">
                     <div> <a href="./index.html"><img src="./Imagenes/home.png" title="Home" height="50"></a></div>
-                    <div> <a href="./index.html"><img src="./Imagenes/11.png" alt="" height="50"></a></div>
                     <div> <a href="./index.html"><img src="./Imagenes/11.png" title="Your team" height="50"></a></div>
                     <div id="teams">
                         <label for="teams1"><img src="./Imagenes/shield.png" title="Teams" height="50"></label>
                     </div>
-
                 </div>
-                <div id="searching">
-                    <form action="" autocomplete="on">
-                        <input id="search" name="search" type="text" placeholder="Which player are you looking for?">
-                        <input id="lupa" value="Rechercher" type="submit">
-                    </form>
+                <div id="search">
+                    <div id="icon-search">
+                        <i id="iconSearch"><img src="./Imagenes/lupa.png" height="30"></i>
+                    </div>
                 </div>
-
             </div>
-
             <div id="teams">
                 <input id="teams1" name="Teams" type="checkbox">
                 <div id="shields"></div>
             </div>
         </div>
     </header>
+
+    <div id="search2">
+        <div id="ctn-bars-search">
+            <input type="text" id="inputSearch" placeholder="Which player are you looking for?">
+        </div>
+        <ul id="box-search">
+            <li><a href="#"><img src="./Imagenes/lupa.png" height="10">Diego</a></li>
+            <li><a href="#"><img src="./Imagenes/lupa.png" height="10">Laura</a></li>
+        </ul>
+        <div id="cover-ctn-search">
+        </div>
+    </div>
+
     <main>
+        <div id="select"></div>
+        <div class="table-users">
+            <div class="seccion">
+                <input id="seccion-one" type="checkbox" name="tabs">
+                <label class="top" for="seccion-one">Scorers</label>
+                <div class="seccion-content">
+                    <table id="table" cellspacing="0">
+                        <thead>
+                            <tr id="tableFirst">
+                                <th>Stadium</th>
+                                <th>Date</th>
+                                <th>Owner</th>
+                                <th>Score</th>
+                                <th>Guest</th>
+                                <th>Status</th>
+                                <th>Period 1</th>
+                                <th>Period 2</th>
+                            </tr>
+                        </thead>
+                        <tbody id="datos">
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="table-users">
+            <div class="seccion">
+                <input id="seccion-two" type="checkbox" name="tabs">
+                <label class="top" for="seccion-two">Table</label>
+                <div class="seccion-content">
+                    <table id="table" cellspacing="0">
+                        <thead>
+                            <tr id="tableFirst">
+                                <th>Date</th>
+                                <th>Owner</th>
+                                <th>Score</th>
+                                <th>Guest</th>
+                                <th>Status</th>
+                                <th>Period 1</th>
+                                <th>Period 2</th>
+                            </tr>
+                        </thead>
+                        <tbody id="datos">
+                            <tr>
+                                <td>Date</td>
+                                <td>Date</td>
+                                <td>Date</td>
+                                <td>Date</td>
+                                <td>Date</td>
+                                <td>Date</td>
+                                <td>Date</td>
+                            </tr>
+
+                            <tr>
+                                <td>Date</td>
+                                <td>Date</td>
+                                <td>Date</td>
+                                <td>Date</td>
+                                <td>Date</td>
+                                <td>Date</td>
+                                <td>Date</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
 
     </main>
     <footer>
