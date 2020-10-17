@@ -46,41 +46,45 @@ function entrar(country) {
     fetch(`https://api.sportsdata.io/v3/soccer/scores/json/Areas?key=${keyAPI}`).then(function (respuesta) {
         return respuesta.json();
     }).then(function (datos) {
-        if (country == "Spain") {
-            location.href = './league.html'
-            localStorage.setItem("country", country)
-            localStorage.setItem("league", datos[17].Competitions[0].Name)
-            localStorage.setItem("CompetitionId", datos[17].Competitions[0].CompetitionId)
-        }
-        else if (country == "England") {
-            location.href = './league.html'
-            localStorage.setItem("country", country)
-            localStorage.setItem("league", datos[9].Competitions[0].Name)
-            localStorage.setItem("CompetitionId", datos[9].Competitions[0].CompetitionId)
-        }
-        else if (country == "France") {
-            location.href = './league.html'
-            localStorage.setItem("country", country)
-            localStorage.setItem("league", datos[10].Competitions[0].Name)
-            localStorage.setItem("CompetitionId", datos[10].Competitions[0].CompetitionId)
-        }
-        else if (country == "Italy") {
-            location.href = './league.html'
-            localStorage.setItem("country", country)
-            localStorage.setItem("league", datos[13].Competitions[0].Name)
-            localStorage.setItem("CompetitionId", datos[13].Competitions[0].CompetitionId)
-        }
-        else if (country == "Germany") {
-            location.href = './league.html'
-            localStorage.setItem("country", country)
-            localStorage.setItem("league", datos[11].Competitions[0].Name)
-            localStorage.setItem("CompetitionId", datos[11].Competitions[0].CompetitionId)
-        }
-        else if (country == "Netherland") {
-            location.href = './league.html'
-            localStorage.setItem("country", country)
-            localStorage.setItem("league", datos[15].Competitions[0].Name)
-            localStorage.setItem("CompetitionId", datos[15].Competitions[0].CompetitionId)
+        if (!datos.results) {
+            window.alert("La petición ha fallado, recargue la página")
+        } else {
+            if (country == "Spain") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[17].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[17].Competitions[0].CompetitionId)
+            }
+            else if (country == "England") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[9].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[9].Competitions[0].CompetitionId)
+            }
+            else if (country == "France") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[10].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[10].Competitions[0].CompetitionId)
+            }
+            else if (country == "Italy") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[13].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[13].Competitions[0].CompetitionId)
+            }
+            else if (country == "Germany") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[11].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[11].Competitions[0].CompetitionId)
+            }
+            else if (country == "Netherland") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[15].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[15].Competitions[0].CompetitionId)
+            }
         }
     })
 }

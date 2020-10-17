@@ -29,11 +29,14 @@ function team(teamId) {
 fetch(url).then(function (respuesta) {
     return respuesta.json();
 }).then(function (datos) {
-    for (let i = 0; i < datos.Teams.length; i++) {
-        mensaje += `<a href="./team.html" onclick=team("${datos.Teams[i].TeamId}")><img id ="teamShield" src="${datos.Teams[i].WikipediaLogoUrl}" title="${datos.Teams[i].Name}" value="${datos.Teams[i].TeamId}" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height =""></a>`
+    if (!datos.results) {
+        window.alert("La petición ha fallado, recargue la página")
+    } else {
+        for (let i = 0; i < datos.Teams.length; i++) {
+            mensaje += `<a href="./team.html" onclick=team("${datos.Teams[i].TeamId}")><img id ="teamShield" src="${datos.Teams[i].WikipediaLogoUrl}" title="${datos.Teams[i].Name}" value="${datos.Teams[i].TeamId}" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height =""></a>`
+        }
+        document.getElementById("shields").innerHTML = mensaje
     }
-    document.getElementById("shields").innerHTML = mensaje
-
 })
 
 //Llamada a API para guardar los nombres de los jugadores
@@ -127,197 +130,204 @@ function seleccion() {
     fetch(urlScorers).then(function (respuesta) {
         return respuesta.json();
     }).then(function (datos) {
-        //Primero se mira la jornada que quiere ver el usuario y se buscan los escudos (local y visitante) y el estadio
-        for (let i = 0; i < datos.Games.length; i++) {
-            if (datos.Games[i].Week == eleccionJornada) {
-                escudoLocal = datos.Games[i].HomeTeamId
-                escudoVisitante = datos.Games[i].AwayTeamId
-                estadio = datos.Games[i].VenueId
-                for (let j = 0; j < datos.Teams.length; j++) {
-                    if (escudoLocal == datos.Teams[j].TeamId) {
-                        escudoLocal = datos.Teams[j].WikipediaLogoUrl
+        if (!datos.results) {
+            window.alert("La petición ha fallado, recargue la página")
+        } else {
+            //Primero se mira la jornada que quiere ver el usuario y se buscan los escudos (local y visitante) y el estadio
+            for (let i = 0; i < datos.Games.length; i++) {
+                if (datos.Games[i].Week == eleccionJornada) {
+                    escudoLocal = datos.Games[i].HomeTeamId
+                    escudoVisitante = datos.Games[i].AwayTeamId
+                    estadio = datos.Games[i].VenueId
+                    for (let j = 0; j < datos.Teams.length; j++) {
+                        if (escudoLocal == datos.Teams[j].TeamId) {
+                            escudoLocal = datos.Teams[j].WikipediaLogoUrl
+                        }
+                        if (escudoVisitante == datos.Teams[j].TeamId) {
+                            escudoVisitante = datos.Teams[j].WikipediaLogoUrl
+                        }
+                        if (estadio == datos.Teams[j].VenueId) {
+                            estadio = datos.Teams[j].VenueName
+                        } else if (estadio == 95) {
+                            estadio = "Estadio Santiago Bernabeu"
+                        }
                     }
-                    if (escudoVisitante == datos.Teams[j].TeamId) {
-                        escudoVisitante = datos.Teams[j].WikipediaLogoUrl
+                    let fecha = datos.Games[i].DateTime
+                    let dia
+                    let mes
+                    let anyo
+                    let hora
+                    let scoreHome
+                    let scoreAway
+                    if (fecha != null) {
+                        dia = fecha.substring(8, 10)
+                        mes = fecha.substring(5, 7)
+                        anyo = fecha.substring(0, 4)
+                        hora = fecha.substring(11, 16)
+                        scoreHome = parseInt(datos.Games[i].HomeTeamScore / 3)
+                        scoreAway = parseInt(datos.Games[i].AwayTeamScore / 3)
+                        scoreHome1 = parseInt(datos.Games[i].HomeTeamScorePeriod1 / 3)
+                        scoreAway1 = parseInt(datos.Games[i].AwayTeamScorePeriod1 / 3)
+                        scoreHome2 = parseInt(datos.Games[i].HomeTeamScorePeriod2 / 3)
+                        scoreAway2 = parseInt(datos.Games[i].AwayTeamScorePeriod2 / 3)
+                    } else {
+                        dia = "??"
+                        mes = "??"
+                        anyo = "????"
+                        hora = "??:??"
+                        scoreHome = "-"
+                        scoreAway = "-"
+                        scoreHome1 = "-"
+                        scoreAway1 = "-"
+                        scoreHome2 = "-"
+                        scoreAway2 = "-"
                     }
-                    if (estadio == datos.Teams[j].VenueId) {
-                        estadio = datos.Teams[j].VenueName
-                    } else if (estadio == 95) {
-                        estadio = "Estadio Santiago Bernabeu"
+                    let fondo
+                    if (i % 2 != 0) {
+                        fondo = `style="background: white"`
+                    } else {
+                        fondo = `style="background: rgb(170,170,170,0.2)"`
                     }
+                    resultados += `<tr>
+                        <td ${fondo} id="centrado">${estadio}</td>
+                        <td ${fondo} id="centrado">${dia}-${mes}-${anyo}   ${hora}</td>
+                        <td ${fondo} id="centrado"><img src="${escudoLocal}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>  
+                        <td ${fondo} id="izquierda" style="color: blue;">${datos.Games[i].HomeTeamName}</td>
+                        <td ${fondo} id="centrado">${scoreHome} : ${scoreAway}</td>
+                        <td ${fondo} id="derecha" style="color: blue;">${datos.Games[i].AwayTeamName}</td>   
+                        <td ${fondo} id="centrado"><img src="${escudoVisitante}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>
+                        <td ${fondo} id="centrado">${datos.Games[i].Status}</td>
+                        <td ${fondo} id="centrado">${scoreHome1} : ${scoreAway1}</td>
+                        <td ${fondo} id="centrado">${scoreHome2} : ${scoreAway2}</td>
+                        </tr>`
                 }
-                let fecha = datos.Games[i].DateTime
-                let dia
-                let mes
-                let anyo
-                let hora
-                let scoreHome
-                let scoreAway
-                if (fecha != null) {
-                    dia = fecha.substring(8, 10)
-                    mes = fecha.substring(5, 7)
-                    anyo = fecha.substring(0, 4)
-                    hora = fecha.substring(11, 16)
-                    scoreHome = parseInt(datos.Games[i].HomeTeamScore / 3)
-                    scoreAway = parseInt(datos.Games[i].AwayTeamScore / 3)
-                    scoreHome1 = parseInt(datos.Games[i].HomeTeamScorePeriod1 / 3)
-                    scoreAway1 = parseInt(datos.Games[i].AwayTeamScorePeriod1 / 3)
-                    scoreHome2 = parseInt(datos.Games[i].HomeTeamScorePeriod2 / 3)
-                    scoreAway2 = parseInt(datos.Games[i].AwayTeamScorePeriod2 / 3)
-                } else {
-                    dia = "??"
-                    mes = "??"
-                    anyo = "????"
-                    hora = "??:??"
-                    scoreHome = "-"
-                    scoreAway = "-"
-                    scoreHome1 = "-"
-                    scoreAway1 = "-"
-                    scoreHome2 = "-"
-                    scoreAway2 = "-"
-                }
-                let fondo
-                if (i%2 != 0) {
-                    fondo = `style="background: white"`
-                } else {
-                    fondo = `style="background: rgb(170,170,170,0.2)"`
-                }
-                resultados += `<tr>
-                <td ${fondo} id="centrado">${estadio}</td>
-                <td ${fondo} id="centrado">${dia}-${mes}-${anyo}   ${hora}</td>
-                <td ${fondo} id="centrado"><img src="${escudoLocal}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>  
-                <td ${fondo} id="izquierda" style="color: blue;">${datos.Games[i].HomeTeamName}</td>
-                <td ${fondo} id="centrado">${scoreHome} : ${scoreAway}</td>
-                <td ${fondo} id="derecha" style="color: blue;">${datos.Games[i].AwayTeamName}</td>   
-                <td ${fondo} id="centrado"><img src="${escudoVisitante}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>
-                <td ${fondo} id="centrado">${datos.Games[i].Status}</td>
-                <td ${fondo} id="centrado">${scoreHome1} : ${scoreAway1}</td>
-                <td ${fondo} id="centrado">${scoreHome2} : ${scoreAway2}</td>
-                </tr>`
+
+                document.getElementById("datos").innerHTML = resultados
             }
 
-            document.getElementById("datos").innerHTML = resultados
+            let tablaEscudosClasificacion = [] //Tabla para almacenar objeto con id y url de escudo
+            let objetoEscudosClasificacion = {} //Objeto para almacenar id y url de escudo
+            let roundId = datos.CurrentSeason.Rounds[0].RoundId
+            let urlTable = `https://api.sportsdata.io/v3/soccer/scores/json/Standings/${roundId}?key=${keyAPI}`
+            let mensajeClasificacion = ""
+            let arrayClasificacion = []
+            let objetoClasificacion
+
+            //Crear tabla con el nombre de equipo y su url de escudo asociado para la clasificación
+            for (let i = 0; i < datos.Teams.length; i++) {
+                objetoEscudosClasificacion = {}
+                objetoEscudosClasificacion.id = datos.Teams[i].TeamId
+                objetoEscudosClasificacion.url = datos.Teams[i].WikipediaLogoUrl
+                tablaEscudosClasificacion[i] = objetoEscudosClasificacion
+            }
+
+            fetch(urlTable).then(function (respuesta) {
+                return respuesta.json();
+            }).then(function (datos) {
+                if (!datos.results) {
+                    window.alert("La petición ha fallado, recargue la página")
+                } else {
+                    //Como en la API vienen desordenados los equipos respecto a su clasificación, creo un array donde los voy colocando usando su posición como indice que ocupara en el array
+                    for (let i = 0; i < 20; i++) {
+                        objetoClasificacion = {}
+                        objetoClasificacion.url = datos[i].TeamId
+                        objetoClasificacion.posicion = datos[i].Order
+                        objetoClasificacion.nombre = datos[i].ShortName
+                        objetoClasificacion.jugados = datos[i].Games
+                        objetoClasificacion.ganados = datos[i].Wins
+                        objetoClasificacion.empatados = datos[i].Draws
+                        objetoClasificacion.perdidos = datos[i].Losses
+                        objetoClasificacion.golesMarcados = datos[i].GoalsScored
+                        objetoClasificacion.golesEncajados = datos[i].GoalsAgainst
+                        objetoClasificacion.diferencia = datos[i].GoalsDifferential
+                        objetoClasificacion.puntos = datos[i].Points
+                        arrayClasificacion[(datos[i].Order - 1)] = objetoClasificacion
+                    }
+
+                    //Busqueda del escudo de cada equipo
+                    for (let i = 0; i < arrayClasificacion.length; i++) {
+                        for (let j = 0; j < tablaEscudosClasificacion.length; j++) {
+                            if (arrayClasificacion[i].url == tablaEscudosClasificacion[j].id) {
+                                arrayClasificacion[i].url = tablaEscudosClasificacion[j].url
+                            }
+                        }
+                    }
+                    //Con el array ya relleno y ordenado, se van sacando por posicion para rellenar la tabla de clasificación
+                    for (let i = 0; i < arrayClasificacion.length; i++) {
+                        let color
+                        if (i % 2 != 0) {
+                            color = `style="background: white"`
+                        } else {
+                            color = `style="background: rgb(170,170,170,0.2)"`
+                        }
+                        if (i < 4) {
+                            mensajeClasificacion += `<tr>
+                                <th style="background: rgba(0, 128, 0, 0.651);" id="colorClasificacion"></th>
+                                <td ${color} id="centrado">${arrayClasificacion[i].posicion}</td>
+                                <td ${color} id="centrado"><img src="${arrayClasificacion[i].url}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>
+                                <td ${color} id="izquierda">${arrayClasificacion[i].nombre}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].jugados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].ganados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].empatados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].perdidos}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].golesMarcados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].golesEncajados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].diferencia}</td>
+                                <td ${color} id="centrado"><strong>${arrayClasificacion[i].puntos}</strong></td>
+                                </tr>`
+                        }
+                        else if (i >= 4 && i < 7) {
+                            mensajeClasificacion += `<tr>
+                                <th style="background:  rgba(255, 255, 0, 0.61);" id="colorClasificacion"></th>
+                                <td ${color} id="centrado">${arrayClasificacion[i].posicion}</td>
+                                <td ${color} id="centrado"><img src="${arrayClasificacion[i].url}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>
+                                <td ${color} id="izquierda">${arrayClasificacion[i].nombre}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].jugados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].ganados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].empatados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].perdidos}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].golesMarcados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].golesEncajados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].diferencia}</td>
+                                <td ${color} id="centrado"><strong>${arrayClasificacion[i].puntos}</strong></td>
+                                </tr>`
+                        }
+                        else if (i >= 7 && i < 17) {
+                            mensajeClasificacion += `<tr>
+                                <th style="background: white;" id="colorClasificacion"></th>
+                                <td ${color} id="centrado">${arrayClasificacion[i].posicion}</td>
+                                <td ${color} id="centrado"><img src="${arrayClasificacion[i].url}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>
+                                <td ${color} id="izquierda">${arrayClasificacion[i].nombre}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].jugados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].ganados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].empatados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].perdidos}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].golesMarcados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].golesEncajados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].diferencia}</td>
+                                <td ${color} id="centrado"><strong>${arrayClasificacion[i].puntos}</strong></td>
+                                </tr>`
+                        }
+                        else if (i >= 17 && i < 20) {
+                            mensajeClasificacion += `<tr>
+                                <th style="background: rgba(255, 0, 0, 0.575);" id="colorClasificacion"></th>
+                                <td ${color} id="centrado">${arrayClasificacion[i].posicion}</td>
+                                <td ${color} id="centrado"><img src="${arrayClasificacion[i].url}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>
+                                <td ${color} id="izquierda">${arrayClasificacion[i].nombre}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].jugados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].ganados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].empatados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].perdidos}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].golesMarcados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].golesEncajados}</td>
+                                <td ${color} id="centrado">${arrayClasificacion[i].diferencia}</td>
+                                <td ${color} id="centrado"><strong>${arrayClasificacion[i].puntos}</strong></td>
+                                </tr>`
+                        }
+                    }
+                    document.getElementById("clasificacion").innerHTML = mensajeClasificacion
+                }
+            })
         }
-
-        let tablaEscudosClasificacion = [] //Tabla para almacenar objeto con id y url de escudo
-        let objetoEscudosClasificacion = {} //Objeto para almacenar id y url de escudo
-        let roundId = datos.CurrentSeason.Rounds[0].RoundId
-        let urlTable = `https://api.sportsdata.io/v3/soccer/scores/json/Standings/${roundId}?key=${keyAPI}`
-        let mensajeClasificacion = ""
-        let arrayClasificacion = []
-        let objetoClasificacion
-        
-        //Crear tabla con el nombre de equipo y su url de escudo asociado para la clasificación
-        for (let i = 0; i < datos.Teams.length; i++) {
-            objetoEscudosClasificacion = {}
-            objetoEscudosClasificacion.id = datos.Teams[i].TeamId
-            objetoEscudosClasificacion.url = datos.Teams[i].WikipediaLogoUrl
-            tablaEscudosClasificacion[i] = objetoEscudosClasificacion
-        }
-
-        fetch(urlTable).then(function (respuesta) {
-            return respuesta.json();
-        }).then(function (datos) {
-            //Como en la API vienen desordenados los equipos respecto a su clasificación, creo un array donde los voy colocando usando su posición como indice que ocupara en el array
-            for (let i = 0; i < 20; i++) {
-                objetoClasificacion = {}
-                objetoClasificacion.url = datos[i].TeamId
-                objetoClasificacion.posicion = datos[i].Order
-                objetoClasificacion.nombre = datos[i].ShortName
-                objetoClasificacion.jugados = datos[i].Games
-                objetoClasificacion.ganados = datos[i].Wins
-                objetoClasificacion.empatados = datos[i].Draws
-                objetoClasificacion.perdidos = datos[i].Losses
-                objetoClasificacion.golesMarcados = datos[i].GoalsScored
-                objetoClasificacion.golesEncajados = datos[i].GoalsAgainst
-                objetoClasificacion.diferencia = datos[i].GoalsDifferential
-                objetoClasificacion.puntos = datos[i].Points
-                arrayClasificacion[(datos[i].Order - 1)] = objetoClasificacion
-            }
-
-            //Busqueda del escudo de cada equipo
-            for (let i = 0; i < arrayClasificacion.length; i++) {
-                for (let j = 0; j < tablaEscudosClasificacion.length; j++) {
-                    if (arrayClasificacion[i].url == tablaEscudosClasificacion[j].id) {
-                        arrayClasificacion[i].url = tablaEscudosClasificacion[j].url
-                    }
-                }
-            }
-            //Con el array ya relleno y ordenado, se van sacando por posicion para rellenar la tabla de clasificación
-            for (let i = 0; i < arrayClasificacion.length; i++) {
-                let color
-                if (i%2 != 0) {
-                    color = `style="background: white"`
-                } else {
-                    color = `style="background: rgb(170,170,170,0.2)"`
-                }
-                if (i < 4) {
-                    mensajeClasificacion += `<tr>
-                <th style="background: rgba(0, 128, 0, 0.651);" id="colorClasificacion"></th>
-                <td ${color} id="centrado">${arrayClasificacion[i].posicion}</td>
-                <td ${color} id="centrado"><img src="${arrayClasificacion[i].url}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>
-                <td ${color} id="izquierda">${arrayClasificacion[i].nombre}</td>
-                <td ${color} id="centrado">${arrayClasificacion[i].jugados}</td>
-                <td ${color} id="centrado">${arrayClasificacion[i].ganados}</td>
-                <td ${color} id="centrado">${arrayClasificacion[i].empatados}</td>
-                <td ${color} id="centrado">${arrayClasificacion[i].perdidos}</td>
-                <td ${color} id="centrado">${arrayClasificacion[i].golesMarcados}</td>
-                <td ${color} id="centrado">${arrayClasificacion[i].golesEncajados}</td>
-                <td ${color} id="centrado">${arrayClasificacion[i].diferencia}</td>
-                <td ${color} id="centrado"><strong>${arrayClasificacion[i].puntos}</strong></td>
-            </tr>`
-                }
-                else if (i >= 4 && i < 7) {
-                    mensajeClasificacion += `<tr>
-                    <th style="background:  rgba(255, 255, 0, 0.61);" id="colorClasificacion"></th>
-                    <td ${color} id="centrado">${arrayClasificacion[i].posicion}</td>
-                    <td ${color} id="centrado"><img src="${arrayClasificacion[i].url}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>
-                    <td ${color} id="izquierda">${arrayClasificacion[i].nombre}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].jugados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].ganados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].empatados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].perdidos}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].golesMarcados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].golesEncajados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].diferencia}</td>
-                    <td ${color} id="centrado"><strong>${arrayClasificacion[i].puntos}</strong></td>
-                </tr>`
-                }
-                else if (i >= 7 && i < 17) {
-                    mensajeClasificacion += `<tr>
-                    <th style="background: white;" id="colorClasificacion"></th>
-                    <td ${color} id="centrado">${arrayClasificacion[i].posicion}</td>
-                    <td ${color} id="centrado"><img src="${arrayClasificacion[i].url}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>
-                    <td ${color} id="izquierda">${arrayClasificacion[i].nombre}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].jugados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].ganados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].empatados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].perdidos}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].golesMarcados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].golesEncajados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].diferencia}</td>
-                    <td ${color} id="centrado"><strong>${arrayClasificacion[i].puntos}</strong></td>
-                </tr>`
-                }
-                else if (i >= 17 && i < 20) {
-                    mensajeClasificacion += `<tr>
-                    <th style="background: rgba(255, 0, 0, 0.575);" id="colorClasificacion"></th>
-                    <td ${color} id="centrado">${arrayClasificacion[i].posicion}</td>
-                    <td ${color} id="centrado"><img src="${arrayClasificacion[i].url}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height="20"></td>
-                    <td ${color} id="izquierda">${arrayClasificacion[i].nombre}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].jugados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].ganados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].empatados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].perdidos}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].golesMarcados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].golesEncajados}</td>
-                    <td ${color} id="centrado">${arrayClasificacion[i].diferencia}</td>
-                    <td ${color} id="centrado"><strong>${arrayClasificacion[i].puntos}</strong></td>
-                </tr>`
-                }
-            }
-            document.getElementById("clasificacion").innerHTML = mensajeClasificacion
-        })
-
     })
 }
