@@ -286,7 +286,7 @@ html, body {
     display: none;
 }
 
-/* Tabla resultados */
+/* Tabla resultados y clasificación */
 
 .top {
     background-color: green;
@@ -295,15 +295,6 @@ html, body {
     padding: 1rem;
     text-align: center;
     text-transform: uppercase;
-}
-
-.header {
-   background-color: #398B93;
-   color: white;
-   font-size: 1.5em;
-   padding: 1rem;
-   text-align: center;
-   text-transform: uppercase;
 }
 
 .table-users {
@@ -316,15 +307,37 @@ html, body {
    width: 90%;
 }
 
-#table {
+#tableR {
    width: 100%;
 }
 
-#table td, #table th { 
+#tableC {
+   width: 100%;
+}
+
+#tableR th { 
+    color: #398B93;
+    padding: 10px; 
+    background-color: #a2f7ff;
+    font-weight: 300;
+} 
+
+#tableR td { 
       color: #398B93;
       padding: 10px; 
 }
-   
+
+#tableC th { 
+    color: #398B93;
+    padding: 10px 0px 10px 0px; 
+    background-color: #a2f7ff;
+    font-weight: 300;
+} 
+
+#tableC td { 
+      color: #398B93;
+      padding: 10px 0px 10px 0px; 
+}
 
 
 #centrado {
@@ -341,24 +354,17 @@ html, body {
     background-color: white;
 }
 
-
 #derecha {
     font-size: 0.95em;
     line-height: 1.4;
     text-align: right;
     background-color: white;
 }
-   
-#table th { 
-    background-color: #a2f7ff;
-    font-weight: 300;
-}
-#datos, #clasificacion {
-background-color: white;
-}
 
 #colorClasificacion {
     width: 5px;
+    padding: 0px;
+    margin: 0px;
 }
 
 #tableFirst {
@@ -473,40 +479,45 @@ background-color: white;
     position: relative;
     margin-bottom: 1px;
     width: 100%;
-    color: #fff;
+    
     overflow: hidden;
-  }
-  .seccion input {
+}
+
+.seccion input {
     position: absolute;
     opacity: 0;
     z-index: -1;
-  }
-  .seccion label {
+}
+
+.seccion label {
     position: relative;
     display: block;
     padding: 0 0 0 1em;
-    background: #16a085;
+    background: #16a084;
     font-weight: bold;
     line-height: 3;
     cursor: pointer;
-  }
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
   
-  .seccion-content {
+.seccion-content {
     max-height: 0;
     overflow: hidden;
-    background: rgba(0, 0, 255, 0.89);
     -webkit-transition: max-height .35s;
     -o-transition: max-height .35s;
     transition: max-height .35s;
-  }
+}
   
-  .seccion-content p {
+.seccion-content p {
     margin: 1em;
-  }
+}
+
   /* Click */
-  .seccion input:checked ~ .seccion-content {
+.seccion input:checked ~ .seccion-content {
     max-height: 100vh;
-  }
+}
   
   /* + */
   .seccion label::after {
@@ -534,3 +545,31 @@ background-color: white;
   .seccion input[type=radio]:checked + label::after {
     transform: rotateX(180deg);
   }
+
+    /* Select de Scores */
+
+/* Reset Select */
+#jornada {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    border: 0 !important;
+}
+ 
+  /* Custom Select */
+#jornada {
+    display: flex;
+    width: 8em;
+    height: 3em;
+    /* line-height: 3; */
+    background:rgb(65,135,121);
+    overflow: hidden;
+    border-radius: .25em;
+    flex: 1;
+    padding: 0 .5em;
+    color: #fff;
+    cursor: pointer;
+}
+  

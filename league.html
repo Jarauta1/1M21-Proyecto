@@ -46,13 +46,13 @@
     </div>
 
     <main>
-        <div id="select"></div>
+
         <div class="table-users">
             <div class="seccion">
                 <input id="seccion-one" type="checkbox" name="tabs">
-                <label class="top" for="seccion-one">Scorers</label>
+                <label class="top" for="seccion-one">Results<div id="select"></div></label>
                 <div class="seccion-content">
-                    <table id="table" cellspacing="0">
+                    <table id="tableR" cellspacing="0">
                         <thead>
                             <tr id="tableFirst">
                                 <th>Stadium</th>
@@ -81,26 +81,24 @@
                 <input id="seccion-two" type="checkbox" name="tabs">
                 <label class="top" for="seccion-two">Table</label>
                 <div class="seccion-content">
-                    <table id="table" cellspacing="0">
+                    <table id="tableC" cellspacing="0">
                         <thead>
                             <tr id="tableFirst">
-                                <th id="colorClasificacion"></th>
+                                <td id="colorClasificacion"></td>
                                 <th>Position</th>
+                                <th></th>
                                 <th>Team</th>
-                                <th>Games</th>
-                                <th>Wins</th>
-                                <th>Draws</th>
-                                <th>Losses</th>
-                                <th>Goals Scored</th>
-                                <th>Goals Against</th>
-                                <th>Goals Differential</th>
-                                <th>Points</th>
+                                <th>P</th>
+                                <th>W</th>
+                                <th>D</th>
+                                <th>L</th>
+                                <th>GF</th>
+                                <th>GA</th>
+                                <th>GD</th>
+                                <th><strong>Points</strong></th>
                             </tr>
                         </thead>
-                        <tbody id="clasificacion">
-                           
-
-                        </tbody>
+                        <tbody id="clasificacion"></tbody>
                     </table>
                 </div>
 
