@@ -29,8 +29,8 @@ function team(teamId) {
 fetch(url).then(function (respuesta) {
     return respuesta.json();
 }).then(function (datos) {
-    if (!datos.results) {
-        window.alert("La petición ha fallado, recargue la página")
+    if (datos.statusCode) {
+        window.alert(datos.message)
     } else {
         for (let i = 0; i < datos.Teams.length; i++) {
             mensaje += `<a href="./team.html" onclick=team("${datos.Teams[i].TeamId}")><img id ="teamShield" src="${datos.Teams[i].WikipediaLogoUrl}" title="${datos.Teams[i].Name}" value="${datos.Teams[i].TeamId}" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height =""></a>`
@@ -85,6 +85,54 @@ function ocultar_buscador() {
     box_search.style.display = "none";
 }
 
+//Funcion para ir a la liga seleccionada
+function entrar(country) {
+    fetch(`https://api.sportsdata.io/v3/soccer/scores/json/Areas?key=${keyAPI}`).then(function (respuesta) {
+        return respuesta.json();
+    }).then(function (datos) {
+        if (datos.statusCode) {
+            window.alert(datos.message)
+        } else {
+            if (country == "Spain") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[17].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[17].Competitions[0].CompetitionId)
+            }
+            else if (country == "England") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[9].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[9].Competitions[0].CompetitionId)
+            }
+            else if (country == "France") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[10].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[10].Competitions[0].CompetitionId)
+            }
+            else if (country == "Italy") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[13].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[13].Competitions[0].CompetitionId)
+            }
+            else if (country == "Germany") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[11].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[11].Competitions[0].CompetitionId)
+            }
+            else if (country == "Netherland") {
+                location.href = './league.html'
+                localStorage.setItem("country", country)
+                localStorage.setItem("league", datos[15].Competitions[0].Name)
+                localStorage.setItem("CompetitionId", datos[15].Competitions[0].CompetitionId)
+            }
+        }
+    })
+}
+
 //Creando filtrado de busqueda
 document.getElementById("inputSearch").addEventListener("keyup", buscador_interno);
 
@@ -130,8 +178,8 @@ function seleccion() {
     fetch(urlScorers).then(function (respuesta) {
         return respuesta.json();
     }).then(function (datos) {
-        if (!datos.results) {
-            window.alert("La petición ha fallado, recargue la página")
+        if (datos.statusCode) {
+            window.alert(datos.message)
         } else {
             //Primero se mira la jornada que quiere ver el usuario y se buscan los escudos (local y visitante) y el estadio
             for (let i = 0; i < datos.Games.length; i++) {
@@ -224,8 +272,8 @@ function seleccion() {
             fetch(urlTable).then(function (respuesta) {
                 return respuesta.json();
             }).then(function (datos) {
-                if (!datos.results) {
-                    window.alert("La petición ha fallado, recargue la página")
+                if (datos.statusCode) {
+                    window.alert(datos.message)
                 } else {
                     //Como en la API vienen desordenados los equipos respecto a su clasificación, creo un array donde los voy colocando usando su posición como indice que ocupara en el array
                     for (let i = 0; i < 20; i++) {

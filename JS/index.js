@@ -46,8 +46,8 @@ function entrar(country) {
     fetch(`https://api.sportsdata.io/v3/soccer/scores/json/Areas?key=${keyAPI}`).then(function (respuesta) {
         return respuesta.json();
     }).then(function (datos) {
-        if (!datos.results) {
-            window.alert("La petición ha fallado, recargue la página")
+        if (datos.statusCode) {
+            window.alert(datos.message)
         } else {
             if (country == "Spain") {
                 location.href = './league.html'
