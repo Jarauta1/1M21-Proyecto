@@ -210,6 +210,10 @@ html, body {
     width: 25%;
 }
 
+#icon-search {
+    cursor: pointer;
+}
+
 #ctn-icon-search {
     position: absolute;
     right: 20px;
@@ -578,3 +582,78 @@ html, body {
     cursor: pointer;
 }
   
+/*  */
+/* Página equipos */
+/*  */
+
+#headerTeam {
+    background-color: #323232;
+}
+
+#headerTeam2 {
+    display: flex;
+    background-color: #323232;
+    align-items: center;
+}
+
+#escudoTeam {
+    padding: 2% 2% 2% 6%;
+}
+
+#escudoTeam img {
+    height: 100px;
+}
+
+#nombreTeam h1, #nombreTeam h3 {
+    padding: 0;
+    margin: 0;
+}
+
+#nombreTeam h1 {
+    color: white;
+}
+
+#nombreTeam h3, #volver {
+    color: #8a9797;
+    text-decoration: none;
+}
+
+#volver {
+    padding: 2% 2% 2% 10%;
+}
+
+.flex {
+display: flex;
+}
+
+.div90 {
+    width: 90%;
+}
+
+.div5 {
+    width: 5%;
+}
+
+#porteros h3 {
+    color: #6d4747;
+    margin: 0;
+}
+
+.div90 div {
+    display: flex;
+    justify-content: left;
+}
+
+.corto {
+    height: 2px;
+    background-color: #ffb632;
+    border-color: #ffb632;
+    width: 10%;
+}
+
+.largo {
+    width: 100%;
+    height: 2px;
+    background-color: #dddddd;
+    border-color: #dddddd;
+}

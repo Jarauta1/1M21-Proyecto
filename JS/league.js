@@ -51,8 +51,8 @@ fetch(url).then(function (respuesta) {
       
    }
    
-}) */
-
+})
+ */
 
 /* Buscador de contenido */
 
