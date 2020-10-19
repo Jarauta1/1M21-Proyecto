@@ -37,6 +37,7 @@ fetch(url).then(function (respuesta) {
         }
         document.getElementById("shields").innerHTML = mensaje
     }
+    localStorage.setItem("roundId",datos.Games[0].RoundId)
 })
 
 //Llamada a API para guardar los nombres de los jugadores
