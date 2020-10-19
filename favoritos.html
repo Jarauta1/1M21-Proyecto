@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html class="favoritos" lang="en">
-<head>
+<html id ="favoritos" lang="en">
+<head id="favoritos">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <LINK REL=StyleSheet HREF="style.css">
+    <LINK REL=StyleSheet HREF="./CSS/style.css">
 </head>
-<body class="favoritos" >
+<body>
     <div class="stage">
         <div class="world">
           <div class="team"></div>
@@ -52,28 +52,8 @@
       <section>
         <h1>Choose your team</h1>
         
-        <div class="positions menu">
-          <a>Goalkeepers</a>
-          <ul data-pos="gk">
-            <li>
-              <div draggable="true" data-player="J.Hart">
-                <img draggable="false" src="http://omo.akamai.opta.net/image.php?&sport=football&entity=player&description=114&dimensions=40x60&id=15749"/>
-                <p>J.Hart</p>
-              </div>
-            </li>
-            <li>
-              <div draggable="true" data-player="B.Forster">
-                <img draggable="false" src="http://omo.akamai.opta.net/image.php?&sport=football&entity=player&description=114&dimensions=40x60&id=9089"/>
-                <p>B.Forster</p>
-              </div>
-            </li>
-            <li>
-              <div draggable="true" data-player="F.Foster">
-                <img draggable="false" src="http://omo.akamai.opta.net/image.php?&sport=football&entity=player&description=114&dimensions=40x60&id=40383"/>
-                <p>F.Foster</p>
-              </div>
-            </li>
-          </ul>
+        <div id="porteros" class="positions menu">
+          
         </div>
       
         <div class="positions menu">
@@ -212,7 +192,7 @@
           </ul>
         </div>
       </section>
-      <script src="./index.js">
+      <script src="./JS/favoritos.js">
 
       </script>
 </body>

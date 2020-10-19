@@ -1,5 +1,5 @@
 /* Key API */
-let keyAPI = `ca8085723da84292925bffc2a1ffb106`
+let keyAPI = `a4b5874dd1a64312a327ffc71e8ec755`
 
 //Declarando variables
 let teamId = localStorage.getItem("teamId")
@@ -15,6 +15,7 @@ let porterosCard = ""
 let defensasCard = ""
 let mediosCard = ""
 let delanterosCard = ""
+let jugadorId = ""
 
 /* Header de la página */
 fetch(url).then(function (respuesta) {
@@ -108,11 +109,10 @@ fetch(url).then(function (respuesta) {
                                                                           <p>Ciudad nacimiento: ${datos.Teams[i].Players[j].BirthCity}</p>
                                                                           <p>Pais origen: ${datos.Teams[i].Players[j].BirthCountry}</p>
                                                                           <p>Nacionalidad: ${datos.Teams[i].Players[j].Nationality}</p>
-                                                                        </div>
-                                                                        <input type="button" value="Añadir a mi equipo" onclick=añadirPortero()>
-                                                                      </div>`
-                                                                        
-                                                                        
+                                                                          </div>
+                                                                          <button id="porteroId" type="button" value="" onclick="addPortero(${datos.Teams[i].Players[j].CommonName},${datos.Teams[i].Players[j].PhotoUrl},${datos.Teams[i].Players[j].PlayerId})">Añadir a mi equipo</button>
+                                                                          </div>`
+
 
                                                                     } else if (datos.Teams[i].Players[j].Position == "D") {
 
@@ -125,9 +125,9 @@ fetch(url).then(function (respuesta) {
                                                                           <p>Ciudad nacimiento: ${datos.Teams[i].Players[j].BirthCity}</p>
                                                                           <p>Pais origen: ${datos.Teams[i].Players[j].BirthCountry}</p>
                                                                           <p>Nacionalidad: ${datos.Teams[i].Players[j].Nationality}</p>
-                                                                        </div>
-                                                                        <input type="button" value="Añadir a mi equipo" onclick=añadirDefensa()>
-                                                                      </div>`
+                                                                          </div>
+                                                                          <button id = "defensaId" type="button" value="" onclick=addDefensa(${datos.Teams[i].Players[j].CommonName},${datos.Teams[i].Players[j].PhotoUrl},${datos.Teams[i].Players[j].PlayerId})>Añadir a mi equipo</button>
+                                                                        </div>`
 
 
                                                                     } else if (datos.Teams[i].Players[j].Position == "M") {
@@ -141,9 +141,9 @@ fetch(url).then(function (respuesta) {
                                                                           <p>Ciudad nacimiento: ${datos.Teams[i].Players[j].BirthCity}</p>
                                                                           <p>Pais origen: ${datos.Teams[i].Players[j].BirthCountry}</p>
                                                                           <p>Nacionalidad: ${datos.Teams[i].Players[j].Nationality}</p>
-                                                                        </div>
-                                                                        <input type="button" value="Añadir a mi equipo" onclick=añadirMedio()>
-                                                                      </div>`
+                                                                          </div>
+                                                                          <button id = "medioId" type="button" value="" onclick=addMedio(${datos.Teams[i].Players[j].CommonName},${datos.Teams[i].Players[j].PhotoUrl},${datos.Teams[i].Players[j].PlayerId})>Añadir a mi equipo</button>
+                                                                        </div>`
 
                                                                     } else if (datos.Teams[i].Players[j].Position == "A") {
 
@@ -157,7 +157,7 @@ fetch(url).then(function (respuesta) {
                                                                           <p>Pais origen: ${datos.Teams[i].Players[j].BirthCountry}</p>
                                                                           <p>Nacionalidad: ${datos.Teams[i].Players[j].Nationality}</p>
                                                                         </div>
-                                                                        <input type="button" value="Añadir a mi equipo" onclick=añadirDelantero()>
+                                                                        <button id = "delanteroId" type="button" value="" onclick=addDelantero(${datos.Teams[i].Players[j].CommonName},${datos.Teams[i].Players[j].PhotoUrl},${datos.Teams[i].Players[j].PlayerId})>Añadir a mi equipo</button>
                                                                       </div>`
 
                                                                     }
@@ -330,7 +330,7 @@ fetch(url).then(function (respuesta) {
                                                             }
                                                         }
 
-                                                     
+
                                                     }
                                                 })
 
@@ -369,5 +369,69 @@ function plantilla() {
     document.getElementById("cuadroDefensas").innerHTML = defensasCard
     document.getElementById("cuadroMedios").innerHTML = mediosCard
     document.getElementById("cuadroDelanteros").innerHTML = delanterosCard
+}
 
+let porteroFav
+let defensaFav
+let medioFav
+let delanteroFav
+let p = 1
+let d = 1
+let m = 1
+let a = 1
+
+function addPortero(nombre, foto, id) {
+    if (p < 4) {
+        porteroFavN = `porteroNombre${p}`
+        porteroFavF = `porteroFoto${p}`
+        porteroFavI = `porteroId${p}`
+        localStorage.setItem("porteroFavN", nombre)
+        localStorage.setItem("porteroFavF", foto)
+        localStorage.setItem("porteroFavI", id)
+        p++;
+    } else {
+        window.alert("Ya tienes los tres porteros seleccionados")
+    }
+}
+
+function addDefensa(nombre, foto, id) {
+    if (d < 8) {
+        defensaFavN = `defensaNombre${d}`
+        defensaFavF = `defensaFoto${d}`
+        defensaFavI = `defensaId${d}`
+        localStorage.setItem("defensaFavN", nombre)
+        localStorage.setItem("defensaFavF", foto)
+        localStorage.setItem("defensaFavI", id)
+        d++;
+    } else {
+        window.alert("Ya tienes los siete defensas seleccionados")
+    }
+}
+
+function addMedio(nombre, foto, id) {
+    if (m < 10) {
+        medioFavN = `medioNombre${m}`
+        medioFavF = `medioFoto${m}`
+        medioFavI = `medioId${m}`
+        localStorage.setItem("medioFavN", nombre)
+        localStorage.setItem("medioFavF", foto)
+        localStorage.setItem("medioFavI", id)
+        m++;
+    } else {
+        window.alert("Ya tienes los nueve medios seleccionados")
+    }
+}
+
+function addDelantero(nombre, foto, id) {
+    if (a < 5) {
+        delanteroFavN = `delanteroNombre${a}`
+        delanteroFavF = `delanteroFoto${a}`
+        delanteroFavI = `delanteroId${a}`
+        localStorage.setItem("delanteroFavN", nombre)
+        localStorage.setItem("delanteroFavF", foto)
+        localStorage.setItem("delanteroFavI", id)
+        d++;
+    } else {
+        window.alert("Ya tienes los cindo delanteros seleccionados")
+    }
 }

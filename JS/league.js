@@ -1,5 +1,5 @@
 /* Key API */
-let keyAPI = `ca8085723da84292925bffc2a1ffb106`
+let keyAPI = `a4b5874dd1a64312a327ffc71e8ec755`
 
 /* Header de la página */
 
@@ -39,21 +39,6 @@ fetch(url).then(function (respuesta) {
     }
     localStorage.setItem("roundId",datos.Games[0].RoundId)
 })
-
-//Llamada a API para guardar los nombres de los jugadores
-/* fetch(urlSearch).then(function (respuesta) {
-   return respuesta.json();
-}).then(function (datos) {
-   for (let i = 0; i < datos.length; i++) {
-      lista += `
-      <li><a href="#"><img src="./Imagenes/lupa.png" height = "10">${datos[i].PlayerName}</a></li>
-      `
-      document.getElementById("box-search").innerHTML = lista
-      
-   }
-   
-})
- */
 
 /* Buscador de contenido */
 
