@@ -8,7 +8,7 @@
     <div id="head"></div>
 </head>
 
-<body>
+<body class="body">
     <header>
         <div id="click">
             <div id="headerLiga">
@@ -54,21 +54,21 @@
         <div class="table-users">
             <div class="seccion">
                 <input id="seccion-one" type="checkbox" name="tabs">
-                <label class="top" for="seccion-one">Results<div id="select"></div></label>
+                <label class="top" for="seccion-one">Resultados<div id="select"></div></label>
                 <div class="seccion-content">
                     <table id="tableR" cellspacing="0">
                         <thead>
                             <tr id="tableFirst">
-                                <th>Stadium</th>
-                                <th>Date</th>
+                                <th>Estadio</th>
+                                <th>Fecha</th>
                                 <th></th>
-                                <th>Owner</th>
-                                <th>Score</th>
-                                <th>Guest</th>
+                                <th>Local</th>
+                                <th>Marcador</th>
+                                <th>Visitante</th>
                                 <th></th>
-                                <th>Status</th>
-                                <th>Period 1</th>
-                                <th>Period 2</th>
+                                <th>Estado</th>
+                                <th>Periodo 1</th>
+                                <th>Periodo 2</th>
                             </tr>
                         </thead>
                         <tbody id="datos">
@@ -83,23 +83,23 @@
         <div class="table-users">
             <div class="seccion">
                 <input id="seccion-two" type="checkbox" name="tabs">
-                <label class="top" for="seccion-two">Table</label>
+                <label class="top" for="seccion-two">Clasificación</label>
                 <div class="seccion-content">
                     <table id="tableC" cellspacing="0">
                         <thead>
                             <tr id="tableFirst">
                                 <td id="colorClasificacion"></td>
-                                <th>Position</th>
+                                <th>Posición</th>
                                 <th></th>
-                                <th>Team</th>
+                                <th>Equipo</th>
+                                <th>PJ</th>
+                                <th>G</th>
+                                <th>E</th>
                                 <th>P</th>
-                                <th>W</th>
-                                <th>D</th>
-                                <th>L</th>
                                 <th>GF</th>
-                                <th>GA</th>
-                                <th>GD</th>
-                                <th><strong>Points</strong></th>
+                                <th>GC</th>
+                                <th>DG</th>
+                                <th><strong>Puntos</strong></th>
                             </tr>
                         </thead>
                         <tbody id="clasificacion"></tbody>
@@ -112,6 +112,15 @@
 
     </main>
     <footer>
+        <div class="div5"></div>
+        <div class="div90">
+            <h3 class ="tituloFavoritos">Jugadores ya seleccionados</h3>
+            <div id="totalPorteros"></div>
+            <div id="totalDefensas"></div>
+            <div id="totalMedios"></div>
+            <div id="totalDelanteros"></div>
+        </div>
+        <div class="div5"></div>
 
     </footer>
     <div id="pantalla"></div>

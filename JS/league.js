@@ -37,7 +37,7 @@ fetch(url).then(function (respuesta) {
         }
         document.getElementById("shields").innerHTML = mensaje
     }
-    localStorage.setItem("roundId",datos.Games[0].RoundId)
+    localStorage.setItem("roundId", datos.Games[0].RoundId)
 })
 
 /* Buscador de contenido */
@@ -70,6 +70,53 @@ function ocultar_buscador() {
     inputSearch.value = "";
     box_search.style.display = "none";
 }
+
+let arrayFavoritos = []
+let objetFavoritos = {}
+
+for (let i = 0; i < 3; i++) {
+    objetFavoritos.id = `localStorage.getItem(porteroId${i + 1})`
+    objetFavoritos.nombre = `localStorage.getItem(porteroId${i + 1})`
+    arrayFavoritos[i] = objetFavoritos
+}
+for (let i = 0; i < 7; i++) {
+    objetFavoritos.id = `localStorage.getItem(defensaId${i + 1})`
+    objetFavoritos.nombre = `localStorage.getItem(defensaId${i + 1})`
+    arrayFavoritos[i + 3] = objetFavoritos
+}
+for (let i = 0; i < 9; i++) {
+    objetFavoritos.id = `localStorage.getItem(medioId${i + 1})`
+    objetFavoritos.nombre = `localStorage.getItem(medioId${i + 1})`
+    arrayFavoritos[i + 10] = objetFavoritos
+}
+for (let i = 0; i < 4; i++) {
+    objetFavoritos.id = `localStorage.getItem(delanteroId${i + 1})`
+    objetFavoritos.nombre = `localStorage.getItem(delanteroId${i + 1})`
+    arrayFavoritos[i + 19] = objetFavoritos
+}
+
+let mensajeBusqueda = ""
+for (let i = 0; i < 3; i++) {
+    mensajeBusqueda += `
+<li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar(${arrayFavoritos[i].id}))>localStorage.getItem(${arrayFavoritos[i].nombre})</a></li>
+`
+}
+for (let i = 0; i < 7; i++) {
+    mensajeBusqueda += `
+<li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar(${arrayFavoritos[i + 3].id})>localStorage.getItem(${arrayFavoritos[i + 3].nombre})</a></li>
+`
+}
+for (let i = 0; i < 9; i++) {
+    mensajeBusqueda += `
+<li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar(${arrayFavoritos[i + 10].id})>${arrayFavoritos[i + 10].nombre})</a></li>
+`
+}
+for (let i = 0; i < 4; i++) {
+    mensajeBusqueda += `
+<li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar(localStorage.getItem(${arrayFavoritos[i + 19].id})>localStorage.getItem(${arrayFavoritos[i + 19].nombre})</a></li>
+`
+}
+document.getElementById("box-search").innerHTML = mensajeBusqueda
 
 //Funcion para ir a la liga seleccionada
 function entrar(country) {
@@ -142,7 +189,10 @@ function buscador_interno() {
 }
 
 /* Select de jornada */
-let opcionJornada = "<option selected disabled>Choose round</option>"
+
+let hola = localStorage.getItem("eleccionFavoritos")
+let aver = JSON.parse(hola)
+let opcionJornada = "<option selected disabled>Jornada</option>"
 for (let i = 1; i < 39; i++) {
     opcionJornada += `<option value=${i}>${i}</option>`
     document.getElementById("select").innerHTML = `
@@ -364,4 +414,65 @@ function seleccion() {
             })
         }
     })
+}
+
+
+/* Footer */
+let porterosFavoritos = 0
+let jugador1 = localStorage.getItem("porteroId1")
+let jugador2 = localStorage.getItem("porteroId2")
+let jugador3 = localStorage.getItem("porteroId3")
+
+if (jugador1 == null && jugador2 == null && jugador3 == null) {
+    document.getElementById("totalPorteros").innerHTML = "No hay porteros seleccionados"
+} else {
+    porterosFavoritos += 1
+    document.getElementById("totalPorteros").innerHTML = `Hay seleccionados ${porterosFavoritos} de 3 porteros`
+}
+
+let defensasFavoritos = 0
+let jugador4 = localStorage.getItem("defensaId1")
+let jugador5 = localStorage.getItem("defensaId2")
+let jugador6 = localStorage.getItem("defensaId3")
+let jugador7 = localStorage.getItem("defensaId4")
+let jugador8 = localStorage.getItem("defensaId5")
+let jugador9 = localStorage.getItem("defensaId6")
+let jugador10 = localStorage.getItem("defensaId7")
+
+if (jugador4 == null && jugador5 == null && jugador6 == null && jugador7 == null && jugador8 == null && jugador9 == null && jugador10 == null) {
+    document.getElementById("totalDefensas").innerHTML = "No hay defensas seleccionados"
+} else {
+    defensasFavoritos += 1
+    document.getElementById("totalDefensas").innerHTML = `Hay seleccionados ${defensasFavoritos} de 7 defensas`
+}
+
+let mediosFavoritos = 0
+let jugador11 = localStorage.getItem("medioId1")
+let jugador12 = localStorage.getItem("medioId2")
+let jugador13 = localStorage.getItem("medioId3")
+let jugador14 = localStorage.getItem("medioId4")
+let jugador15 = localStorage.getItem("medioId5")
+let jugador16 = localStorage.getItem("medioId6")
+let jugador17 = localStorage.getItem("medioId7")
+let jugador18 = localStorage.getItem("medioId8")
+let jugador19 = localStorage.getItem("medioId9")
+
+if (jugador11 == null && jugador12 == null && jugador13 == null && jugador14 == null && jugador15 == null && jugador16 == null && jugador17 == null && jugador18 == null && jugador19 == null) {
+    document.getElementById("totalMedios").innerHTML = "No hay medios seleccionados"
+} else {
+    mediosFavoritos += 1
+    document.getElementById("totalMedios").innerHTML = `Hay seleccionados ${mediosFavoritos} de 9 medios`
+}
+
+let delanterosFavoritos = 0
+let jugador20 = localStorage.getItem("delanteroId1")
+let jugador21 = localStorage.getItem("delanteroId2")
+let jugador22 = localStorage.getItem("delanteroId3")
+let jugador23 = localStorage.getItem("delanteroId4")
+
+if (jugador20 == null && jugador21 == null && jugador22 == null && jugador23 == null) {
+    document.getElementById("totalDelanteros").innerHTML = "No hay delanteros seleccionados"
+} else {
+    delanterosFavoritos += 1
+    document.getElementById("totalDelanteros").innerHTML = `Hay seleccionados ${delanterosFavoritos} de 4 delanteros`
 }
