@@ -1,59 +1,22 @@
 /* Key API */
 let keyAPI = `a4b5874dd1a64312a327ffc71e8ec755`
 
-//Declarando variables
-let seleccion = {}
-let mensaje = ""
-let i
-let liga = "liga"
-let x
-
-//Iconos eleccion liga
-document.getElementById("tarjeta1").innerHTML = `<div id="league">
-<img id="logo" src="./Imagenes/logo Spain.png" width="" height="">
-<hr>
-<nav class="nav-bar"><div class="nav-item"><h1 class="text">LET'S PLAY</h1></div></nav>
-</div>`
-document.getElementById("tarjeta2").innerHTML = `<div id="league">
-<div><img id="logo" src="./Imagenes/logo England.png" width="" height=""></div>
-<hr>
-<nav class="nav-bar"><div class="nav-item"><h1 class="text">LET'S PLAY</h1></div></nav>
-</div>`
-document.getElementById("tarjeta3").innerHTML = `<div id="league">
-<div><img id="logo" src="./Imagenes/logo Germany.png" width="" height=""></div>
-<hr>
-<nav class="nav-bar"><div class="nav-item"><h1 class="text">LET'S PLAY</h1></div></nav>
-</div>`
-document.getElementById("tarjeta4").innerHTML = `<div id="league">
-<div><img id="logo" src="./Imagenes/logo Italy.png" width="" height="}"></div>
-<hr>
-<nav class="nav-bar"><div class="nav-item"><h1 class="text">LET'S PLAY</h1></div></nav>
-</div>`
-document.getElementById("tarjeta5").innerHTML = `<div id="league">
-<div><img id="logo" src="./Imagenes/logo France.png" width="" height=""></div>
-<hr>
-<nav class="nav-bar"><div class="nav-item"><h1 class="text">LET'S PLAY</h1></div></nav>
-</div>`
-document.getElementById("tarjeta6").innerHTML = `<div id="league">
-<div><img id="logo" src="./Imagenes/logo Netherland.png" width="" height=""></div>
-<hr>
-<nav class="nav-bar"><div class="nav-item"><h1 class="text">LET'S PLAY</h1></div></nav>
-</div>`
-
-
 //Funcion para ir a la liga seleccionada
-function entrar(country) {
+function entrar(country) { //El string recibido se almacena en la variable "country"
+    //Llamada a la API, enlace "Áreas" para obtener nombre e ID de cada liga
     fetch(`https://api.sportsdata.io/v3/soccer/scores/json/Areas?key=${keyAPI}`).then(function (respuesta) {
         return respuesta.json();
     }).then(function (datos) {
+        //Condicional para comprobar que la llamada se ha ejecutado correctamente, en caso de fallo muestra el mensaje que nos trasmite la API
         if (datos.statusCode) {
             window.alert(datos.message)
         } else {
+            //Condicional para comparar la variable de la función
             if (country == "Spain") {
-                location.href = './league.html'
-                localStorage.setItem("country", country)
-                localStorage.setItem("league", datos[17].Competitions[0].Name)
-                localStorage.setItem("CompetitionId", datos[17].Competitions[0].CompetitionId)
+                location.href = './league.html' //Página a la que nos lleva la función
+                localStorage.setItem("country", country) //Se guarda en local el nombre del país para posterior utilización
+                localStorage.setItem("league", datos[17].Competitions[0].Name) //Se guarda en local el nombre de la liga (dado por la API) para posterior utilización
+                localStorage.setItem("CompetitionId", datos[17].Competitions[0].CompetitionId) //Se guarda en local la ID de la liga (dado por la API) para poder incluirlo posteriormente en enlaces para llamadas a la API
             }
             else if (country == "England") {
                 location.href = './league.html'

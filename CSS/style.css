@@ -1,34 +1,86 @@
+/* ------------ */
 /* Pagina index */
+/* ------------ */
 
-html, body {
+/* html, body {
   margin: 0%;
   height: 100%;
-}
+} */
 
 .ventana {
   height: 90%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-between; 
 }
 
 #fondoPrincipal {
-      background-image: url(../Imagenes/fondo.jpg);
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
-  }
-
-#logo {
-  width: 100%;
+  background-image: url(../Imagenes/fondo.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
-@media only screen and (max-width: 900px) {
-  html, body {
+#logo {
+  width: 35%;
+  cursor: pointer;
+}
+
+.titulo {
+  color: white
+}
+    
+#tarjetas, .titulo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 2%;
+  padding: 0;
+}
+    
+#league {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 33%;
+  height: 30%;
+  transition: 1.0s; 
+}
+
+.nav-bar {
+display: inline-flex;
+flex-direction: column;
+justify-content: center;
+height: 10;
+width: 100%;
+}
+
+.nav-item {
+text-align: center;
+padding: 0 1.2rem;
+}
+
+/* De normal está no visible el texto debajo de los logos de cada liga */
+.nav-text {
+  transition: all 1.0s ease-in-out;
+  color: transparent;
+}
+
+/* Hace que el texto aparezca al estar el cursos sobre el logo de la liga */
+#league:hover .nav-text {
+transform: translateY(-100%);
+color: white;
+}
+
+/* Visualización modo móvil */
+@media only screen and (max-width: 800px) {
+  /* html, body {
       margin: 0%;
       height: 100%;
-  }
+  } */
   
   .ventana {
       height: 90%;
@@ -50,7 +102,7 @@ html, body {
   }
 }
 
-@media only screen and (max-height: 800px) {
+/* @media only screen and (max-height: 800px) {
   html, body {
       margin: 0%;
       width: 100%;
@@ -78,58 +130,13 @@ html, body {
   #teamShield {
       height: 30px;
   }
-}
+} */
 
-.titulo {
-  color: white
-}
 
-.nav-bar {
-display: inline-flex;
-flex-direction: column;
-justify-content: center;
-height: 10;
-z-index: 10;
-}
 
-.nav-item {
-cursor: pointer;
-text-align: center;
-padding: 0 1.2rem;
-}
-
-.text {
-  transition: all 1.0s ease-in-out;
-  color: transparent;
-}
-
-#league:hover .text {
-transform: translateY(-100%);
-color: white;
-}
-
-#tarjetas1, .titulo {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 2%;
-  padding: 0;
-  
-}
-
-#league {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 200px;
-  transition: 1.0s; 
-   
-}
+/* ----------- */
 /* Pagina liga */
-
+/* ----------- */
 
 /* Cabecero */
 
@@ -697,6 +704,188 @@ margin: 1%;
 }
 
 /* Opcion Ficha y Plantilla */
+
+/* ------------------ */
+/* Tarjeta FIFA-STATS */
+/* ------------------ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* body {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 400;
+  background: url("https://user-images.githubusercontent.com/22690563/67150939-14a0b180-f2c7-11e9-8016-a993a397e1c5.jpg") no-repeat center center/cover;
+} */
+
+
+.wrapper {
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  width: 10%;
+  height: 10%; 
+  min-height: 100px;
+}
+
+/*
+  *** fut-player-card styles ***
+*/
+.fut-player-card {
+  position: relative;
+  width: 300px;
+  height: 485px;
+  background-image: url(https://fut-watch.com/img/20/card/goldtots.png?v=11);
+  background-position: center center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  padding: 3.8rem 0;
+  z-index: 2;
+  -webkit-transition: 200ms ease-in;
+  transition: 200ms ease-in;
+}
+.fut-player-card .player-card-top {
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+  color: #e9cc74;
+  padding: 0 1.5rem;
+}
+.fut-player-card .player-card-top .player-master-info {
+  position: absolute;
+  line-height: 2.2rem;
+  font-weight: 300;
+  padding: 1.5rem 0;
+  text-transform: uppercase;
+}
+.fut-player-card .player-card-top .player-master-info .player-rating {
+  font-size: 2rem;
+}
+.fut-player-card .player-card-top .player-master-info .player-position {
+  font-size: 1.4rem;
+}
+.fut-player-card .player-card-top .player-master-info .player-nation {
+  display: block;
+  width: 2rem;
+  height: 25px;
+  margin: 0.3rem 0;
+}
+.fut-player-card .player-card-top .player-master-info .player-nation img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.fut-player-card .player-card-top .player-master-info .player-club {
+  display: block;
+  width: 2.1rem;
+  height: 40px;
+}
+.fut-player-card .player-card-top .player-master-info .player-club img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.fut-player-card .player-card-top .player-picture {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.fut-player-card .player-card-top .player-picture img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  position: relative;
+  right: -1.5rem;
+  bottom: 0;
+}
+.fut-player-card .player-card-top .player-picture .player-extra {
+  position: absolute;
+  right: 0;
+  bottom: -0.5rem;
+  overflow: hidden;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  width: 100%;
+  height: 2rem;
+  padding: 0 1.5rem;
+  text-align: right;
+  background: none;
+}
+.fut-player-card .player-card-top .player-picture .player-extra span {
+  margin-left: 0.6rem;
+  text-shadow: 2px 2px #333;
+}
+.fut-player-card .player-card-bottom {
+  position: relative;
+}
+.fut-player-card .player-card-bottom .player-info {
+  display: block;
+  padding: 0.3rem 0;
+  color: #e9cc74;
+  width: 90%;
+  margin: 0 auto;
+  height: auto;
+  position: relative;
+  z-index: 2;
+}
+.fut-player-card .player-card-bottom .player-info .player-name {
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  border-bottom: 2px solid rgba(233, 204, 116, 0.1);
+  padding-bottom: 0.3rem;
+  overflow: hidden;
+}
+.fut-player-card .player-card-bottom .player-info .player-name span {
+  display: block;
+  text-shadow: 2px 2px #111;
+}
+.fut-player-card .player-card-bottom .player-info .player-features {
+  margin: 0.5rem auto;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+.fut-player-card .player-card-bottom .player-info .player-features .player-features-col {
+  border-right: 2px solid rgba(233, 204, 116, 0.1);
+  padding: 0 2.3rem;
+}
+.fut-player-card .player-card-bottom .player-info .player-features .player-features-col span {
+  display: -webkit-box;
+  display: flex;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+.fut-player-card .player-card-bottom .player-info .player-features .player-features-col span .player-feature-value {
+  margin-right: 0.3rem;
+  font-weight: 700;
+}
+.fut-player-card .player-card-bottom .player-info .player-features .player-features-col span .player-feature-title {
+  font-weight: 300;
+}
+.fut-player-card .player-card-bottom .player-info .player-features .player-features-col:last-child {
+  border: 0;
+}
+
+/* ------------------ */
+/* Tarjeta FIFA-STATS */
+/* ------------------ */
+
 .flex {
 display: flex;
 }

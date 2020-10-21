@@ -11,10 +11,12 @@ let urlEstadisticas = `https://api.sportsdata.io/v3/soccer/scores/json/TeamSeaso
 
 let mensajeFicha
 let mensajePlantilla
-let porterosCard = ""
-let defensasCard = ""
-let mediosCard = ""
-let delanterosCard = ""
+let mensaje = ""
+let mensajePortero = ""
+let portero
+let defensa
+let medio
+let delanero
 let jugadorId = ""
 let arrayIndices = []
 
@@ -99,68 +101,63 @@ fetch(url).then(function (respuesta) {
                                                         for (let i = 0; i < datos.Teams.length; i++) {
                                                             if (teamId == datos.Teams[i].TeamId) {
                                                                 for (let j = 0; j < datos.Teams[i].Players.length; j++) {
+                                                                    mensaje = `<div class="wrapper">
+                                                                    <!-- *** fut-player-card ***-->
+                                                                    <div class="fut-player-card">
+                                                                      <!-- Player Card Top-->
+                                                                      <div class="player-card-top">
+                                                                        <div class="player-master-info">
+                                                                          <div class="player-rating"><span>${datos.Teams[i].Players[j].Jersey}</span></div>
+                                                                          <div class="player-position"><span>${datos.Teams[i].Players[j].Position}</span></div>
+                                                                          <div class="player-nation"><img src="" alt="Argentina" draggable="false"/></div>
+                                                                          <div class="player-club"><img src="https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg" alt="Barcelona" draggable="false"/></div>
+                                                                        </div>
+                                                                        <div class="player-picture"><img src="${datos.Teams[i].Players[j].PhotoUrl}" alt="Messi" draggable="false"/>
+                                                                          
+                                                                        </div>
+                                                                      </div>
+                                                                      <!-- Player Card Bottom-->
+                                                                      <div class="player-card-bottom">
+                                                                        <div class="player-info">
+                                                                          <!-- Player Name-->
+                                                                          <div class="player-name"><span>${datos.Teams[i].Players[j].ShortName}</span></div>
+                                                                          <!-- Player Features-->
+                                                                          <div class="player-features">
+                                                                            <div class="player-features-col"><span>
+                                                                                <div class="player-feature-value">${datos.Teams[i].Players[j].Height}</div>
+                                                                                <div class="player-feature-title">CM</div></span><span>
+                                                                                <div class="player-feature-value">${datos.Teams[i].Players[j].Weight}</div>
+                                                                                <div class="player-feature-title">KG</div></span><span>
+                                                                                <div class="player-feature-value">94</div>
+                                                                                <div class="player-feature-title">PAS</div></span></div>
+                                                                            <div class="player-features-col"><span>
+                                                                                <div class="player-feature-value">99</div>
+                                                                                <div class="player-feature-title">DRI</div></span><span>
+                                                                                <div class="player-feature-value">35</div>
+                                                                                <div class="player-feature-title">DEF</div></span><span>
+                                                                                <div class="player-feature-value">68</div>
+                                                                                <div class="player-feature-title">PHY</div></span></div>
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                      <button id="porteroId" type="button" value="" onclick="addPortero(${j})">Añadir a mi equipo</button>
+                                                                      </div>`
+
                                                                     if (datos.Teams[i].Players[j].Position == "GK") {
                                                                         arrayIndices.push(datos.Teams[i].Players[j])
-                                                                        porterosCard += `<div class="cardPlayer" style="background-color:${datos.Teams[i].ClubColor1}">
-                                                                        <div class ="fotoCard"><img src="${datos.Teams[i].Players[j].PhotoUrl}" alt="Avatar" onerror ="this.onerror=null;this.src='../Imagenes/persona.jpg'" width="" height=""></div>
-                                                                        <div class="containerCardPlayer">
-                                                                          <div class="nombreCard"><h4><b><strong>${datos.Teams[i].Players[j].FirstName} ${datos.Teams[i].Players[j].LastName}</strong></b></h4> <h3 style="color: ${datos.Teams[i].ClubColor2}"><strong>${datos.Teams[i].Players[j].Jersey}</strong></h3></div>
-                                                                          <p>Altura: ${datos.Teams[i].Players[j].Height}</p>
-                                                                          <p>Peso: ${datos.Teams[i].Players[j].Weight}</p>
-                                                                          <p>Ciudad nacimiento: ${datos.Teams[i].Players[j].BirthCity}</p>
-                                                                          <p>Pais origen: ${datos.Teams[i].Players[j].BirthCountry}</p>
-                                                                          <p>Nacionalidad: ${datos.Teams[i].Players[j].Nationality}</p>
-                                                                          </div>
-                                                                          <button id="porteroId" type="button" value="" onclick="addPortero(${j})">Añadir a mi equipo</button>
-                                                                          </div>`
-
-
+                                                                        mensajePortero += mensaje
                                                                     } else if (datos.Teams[i].Players[j].Position == "D") {
                                                                         arrayIndices.push(datos.Teams[i].Players[j])
-                                                                        defensasCard += `<div class="cardPlayer" style="background-color:${datos.Teams[i].ClubColor1}">
-                                                                        <div class ="fotoCard"><img src="${datos.Teams[i].Players[j].PhotoUrl}" alt="Avatar" onerror ="this.onerror=null;this.src='../Imagenes/persona.jpg'" width="" height=""></div>
-                                                                        <div class="containerCardPlayer">
-                                                                          <div class="nombreCard"><h4><b><strong>${datos.Teams[i].Players[j].FirstName} ${datos.Teams[i].Players[j].LastName}</strong></b></h4> <h3 style="color: ${datos.Teams[i].ClubColor2}"><strong>${datos.Teams[i].Players[j].Jersey}</strong></h3></div>
-                                                                          <p>Altura: ${datos.Teams[i].Players[j].Height}</p>
-                                                                          <p>Peso: ${datos.Teams[i].Players[j].Weight}</p>
-                                                                          <p>Ciudad nacimiento: ${datos.Teams[i].Players[j].BirthCity}</p>
-                                                                          <p>Pais origen: ${datos.Teams[i].Players[j].BirthCountry}</p>
-                                                                          <p>Nacionalidad: ${datos.Teams[i].Players[j].Nationality}</p>
-                                                                          </div>
-                                                                          <button id = "defensaId" type="button" value="" onclick=addDefensa(${j})>Añadir a mi equipo</button>
-                                                                        </div>`
-
-                                                                       
+                                                                        defensa = document.getElementById("cuadroDefensas")
                                                                     } else if (datos.Teams[i].Players[j].Position == "M") {
                                                                         arrayIndices.push(datos.Teams[i].Players[j])
-                                                                        mediosCard += `<div class="cardPlayer" style="background-color:${datos.Teams[i].ClubColor1}">
-                                                                        <div class ="fotoCard"><img src="${datos.Teams[i].Players[j].PhotoUrl}" alt="Avatar" onerror ="this.onerror=null;this.src='../Imagenes/persona.jpg'" width="" height=""></div>
-                                                                        <div class="containerCardPlayer">
-                                                                          <div class="nombreCard"><h4><b><strong>${datos.Teams[i].Players[j].FirstName} ${datos.Teams[i].Players[j].LastName}</strong></b></h4> <h3 style="color: ${datos.Teams[i].ClubColor2}"><strong>${datos.Teams[i].Players[j].Jersey}</strong></h3></div>
-                                                                          <p>Altura: ${datos.Teams[i].Players[j].Height}</p>
-                                                                          <p>Peso: ${datos.Teams[i].Players[j].Weight}</p>
-                                                                          <p>Ciudad nacimiento: ${datos.Teams[i].Players[j].BirthCity}</p>
-                                                                          <p>Pais origen: ${datos.Teams[i].Players[j].BirthCountry}</p>
-                                                                          <p>Nacionalidad: ${datos.Teams[i].Players[j].Nationality}</p>
-                                                                          </div>
-                                                                          <button id = "medioId" type="button" value="" onclick=addMedio(${j})>Añadir a mi equipo</button>
-                                                                        </div>`
-
+                                                                        medio = document.getElementById("cuadroMedios")
                                                                     } else if (datos.Teams[i].Players[j].Position == "A") {
                                                                         arrayIndices.push(datos.Teams[i].Players[j])
-                                                                        delanterosCard += `<div class="cardPlayer" style="background-color:${datos.Teams[i].ClubColor1}">
-                                                                        <div class ="fotoCard"><img src="${datos.Teams[i].Players[j].PhotoUrl}" alt="Avatar" onerror ="this.onerror=null;this.src='../Imagenes/persona.jpg'" width="" height=""></div>
-                                                                        <div class="containerCardPlayer">
-                                                                          <div class="nombreCard"><h4><b><strong>${datos.Teams[i].Players[j].FirstName} ${datos.Teams[i].Players[j].LastName}</strong></b></h4> <h3 style="color: ${datos.Teams[i].ClubColor2}"><strong>${datos.Teams[i].Players[j].Jersey}</strong></h3></div>
-                                                                          <p>Altura: ${datos.Teams[i].Players[j].Height}</p>
-                                                                          <p>Peso: ${datos.Teams[i].Players[j].Weight}</p>
-                                                                          <p>Ciudad nacimiento: ${datos.Teams[i].Players[j].BirthCity}</p>
-                                                                          <p>Pais origen: ${datos.Teams[i].Players[j].BirthCountry}</p>
-                                                                          <p>Nacionalidad: ${datos.Teams[i].Players[j].Nationality}</p>
-                                                                        </div>
-                                                                        <button id = "delanteroId" type="button" value="" onclick=addDelantero(${j})>Añadir a mi equipo</button>
-                                                                      </div>`
-                                                                      
+                                                                        delantero = document.getElementById("cuadroDelanteros")
+
                                                                     }
                                                                 }
 
@@ -228,7 +225,7 @@ fetch(url).then(function (respuesta) {
                                                         <div class="flex">
                                                             <div class="div5"></div>
                                                             <div class="div90">
-                                                                <h3>Estadio ·</h3>
+                                                                <h3>Estadísticas ·</h3>
                                                                 <div>
                                                                     <hr class="corto">
                                                                     <hr class="largo">
@@ -367,10 +364,10 @@ function ficha() {
 
 function plantilla() {
     document.getElementById("mostrarOpcion").innerHTML = mensajePlantilla
-    document.getElementById("cuadroPorteros").innerHTML = porterosCard
-    document.getElementById("cuadroDefensas").innerHTML = defensasCard
-    document.getElementById("cuadroMedios").innerHTML = mediosCard
-    document.getElementById("cuadroDelanteros").innerHTML = delanterosCard
+    document.getElementById("cuadroPorteros").innerHTML = mensajePortero
+    defensa.innerHTML = mensaje
+    medio.innerHTML = mensaje
+    delantero.innerHTML = mensaje
 }
 
 let arrayJugadoresFavoritos = []
@@ -386,7 +383,7 @@ function addPortero(jugadorPortero) {
         window.alert("Seleccionado")
         /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorPortero].ShortName} a tu equipo. 
         Porteros seleccionados: ${p}/3`) */
-        localStorage.setItem("eleccionFavoritos",JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los tres porteros seleccionados")
     }
@@ -399,7 +396,7 @@ function addDefensa(jugadorDefensa) {
         window.alert("Seleccionado")
         /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorDefensa].ShortName} a tu equipo. 
         Porteros seleccionados: ${d}/7`) */
-        localStorage.setItem("eleccionFavoritos",JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los siete defensas seleccionados")
     }
@@ -412,7 +409,7 @@ function addMedio(jugadorMedio) {
         window.alert("Seleccionado")
         /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorMedio].ShortName} a tu equipo. 
         Porteros seleccionados: ${m}/9`) */
-        localStorage.setItem("eleccionFavoritos",JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los nueve medios seleccionados")
     }
@@ -425,7 +422,7 @@ function addDelantero(jugadorDelantero) {
         window.alert("Seleccionado")
         /* window.alert(`Has añadido a ${arrayJugadoresDelantero[jugadorPortero].ShortName} a tu equipo. 
         Porteros seleccionados: ${a}/4`) */
-        localStorage.setItem("eleccionFavoritos",JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los cindo delanteros seleccionados")
     }
