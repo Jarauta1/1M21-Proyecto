@@ -1,13 +1,12 @@
-
-let hola = localStorage.getItem("eleccionFavoritos")
-let aver = JSON.parse(hola)
-console.log(aver)
+let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos"))
+let aver
+console.log(arrayJugadoresFavoritos)
 let mensajePortero = ""
 let mensajeDefensa = ""
 let mensajeMedio = ""
 let mensajeDelantero = ""
 
-for (let i = 0; i < aver.length; i++) {
+/* for (let i = 0; i < aver.length; i++) {
   if (aver[i].Position == "GK") {
     mensajePortero += `<li>
  <div draggable="true" data-player="J.Hart">
@@ -53,7 +52,7 @@ document.getElementById("porteros").innerHTML = mensajePortero
 document.getElementById("medios").innerHTML = mensajeMedio
 
 document.getElementById("delanteros").innerHTML = mensajeDelantero
-
+ */
 
 //* ===================== é
 var wc_team = wc_team || {};

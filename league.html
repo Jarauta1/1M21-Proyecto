@@ -5,18 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <LINK REL=StyleSheet HREF="./CSS/style.css">
+    <!-- Div para introducir icono y título de la página -->
     <div id="head"></div>
 </head>
 
 <body class="body">
     <header>
         <div id="click">
+            <!-- Div donde contiene las imagenes para los botones de la liga, "home", "equipo favorito", "escudos" y búsqueda -->
             <div id="headerLiga">
-                <div id="imagen"></div>
+                <div id="imagen"></div> <!-- Imagen de la liga seleccinada -->
                 <div id="cabecero">
+                    <!-- Imagen casa -->
                     <div> <a href="./index.html"><img src="./Imagenes/home.png" title="Home" height="50"></a></div>
-                    <div> <a href="./favoritos.html"><img src="./Imagenes/11.png" title="Your team" height="50"></a></div>
+                    <!-- Imagen campo -->
+                    <div> <a href="./favoritos.html"><img src="./Imagenes/11.png" title="Your team" height="50"></a>
+                    </div>
                     <div id="teams">
+                        <!-- Imagen escudos, esta en un label para poder desplegar el div-"shields" (está oculto inicialmente) donde están los escudos -->
                         <label for="teams1"><img src="./Imagenes/shield.png" title="Teams" height="50"></label>
                     </div>
                 </div>
@@ -27,8 +33,9 @@
                 </div>
             </div>
             <div id="teams">
+                <!-- Si se pulsa en el label "teams1" este input se hace visible -->
                 <input id="teams1" name="Teams" type="checkbox">
-                <div id="shields"></div>
+                <div id="shields"></div> <!-- Div donde se introducen los escudos de cada liga una vez obtenidos -->
             </div>
         </div>
     </header>
@@ -39,26 +46,24 @@
         </div>
         <ul id="box-search">
             <li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar("Spain")>La Liga</a></li>
-            <li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar("England")>Premier League</a></li>
-            <li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar("Germany")>Bundesliga</a></li>
-            <li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar("Italy")>Serie A</a></li>
-            <li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar("France")>Ligue 1</a></li>
-            <li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar("Spain")>Netherland</a></li>
+            
         </ul>
         <div id="cover-ctn-search">
         </div>
     </div>
 
     <main>
-
-        <div class="table-users">
+        <!-- Tabla de resultados -->
+        <div class="tabla">
             <div class="seccion">
-                <input id="seccion-one" type="checkbox" name="tabs">
-                <label class="top" for="seccion-one">Resultados<div id="select"></div></label>
-                <div class="seccion-content">
-                    <table id="tableR" cellspacing="0">
+                <!-- Misma funcionalidad que con el desplegable de los escudos, pero en vez de desplegar un input, se desplega una tabla -->
+                <input id="resultados" type="checkbox" name="desplegable">
+                <label class="top" for="resultados">Resultados<div id="select"></div></label>
+                <div class="contenido">
+                    <table id="tablaResultados" cellspacing="0">
+                        <!-- En el <thead> indico el nombre de las columnas... -->
                         <thead>
-                            <tr id="tableFirst">
+                            <tr id="titulos">
                                 <th>Estadio</th>
                                 <th>Fecha</th>
                                 <th></th>
@@ -67,10 +72,11 @@
                                 <th>Visitante</th>
                                 <th></th>
                                 <th>Estado</th>
-                                <th>Periodo 1</th>
-                                <th>Periodo 2</th>
+                                <th>1ª Parte</th>
+                                <th>2ª Parte</th>
                             </tr>
                         </thead>
+                        <!-- ... y en el <tbody> cargo las filas con los datos seleccionados (deseados) -->
                         <tbody id="datos">
 
 
@@ -80,14 +86,17 @@
 
             </div>
         </div>
-        <div class="table-users">
+        <div class="tabla">
             <div class="seccion">
-                <input id="seccion-two" type="checkbox" name="tabs">
-                <label class="top" for="seccion-two">Clasificación</label>
-                <div class="seccion-content">
-                    <table id="tableC" cellspacing="0">
+                <!-- Misma funcionalidad que con el desplegable de los escudos, pero en vez de desplegar un input, se desplega una tabla -->
+                <input id="clasificacion" type="checkbox" name="desplegable">
+                <label class="top" for="clasificacion">Clasificación</label>
+                <div class="contenido">
+                    <table id="tablaClasificacion" cellspacing="0">
+                        <!-- Cellspacing = 0 : hace que las celdas no esten separadas y parezca un fondo continuo -->
+                        <!-- En el <thead> indico el nombre de las columnas... -->
                         <thead>
-                            <tr id="tableFirst">
+                            <tr id="titulos">
                                 <td id="colorClasificacion"></td>
                                 <th>Posición</th>
                                 <th></th>
@@ -102,7 +111,8 @@
                                 <th><strong>Puntos</strong></th>
                             </tr>
                         </thead>
-                        <tbody id="clasificacion"></tbody>
+                        <!-- ... y en el <tbody> cargo las filas con los datos seleccionados (deseados) -->
+                        <tbody id="datosClasificacion"></tbody>
                     </table>
                 </div>
 
@@ -112,9 +122,12 @@
 
     </main>
     <footer>
+        <!-- <div> de un 5% de ancho respecto de la página total -->
         <div class="div5"></div>
+        <!-- <div> de un 90% de ancho respecto de la página total -->
         <div class="div90">
-            <h3 class ="tituloFavoritos">Jugadores ya seleccionados</h3>
+            <!-- <div>'s para cargar cuantos jugadores han sido seleccinados ya' -->
+            <h3 class="tituloFavoritos">Jugadores ya seleccionados</h3>
             <div id="totalPorteros"></div>
             <div id="totalDefensas"></div>
             <div id="totalMedios"></div>

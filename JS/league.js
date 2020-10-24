@@ -4,15 +4,13 @@ let keyAPI = `a4b5874dd1a64312a327ffc71e8ec755`
 /* Header de la página */
 
 //Declarando variables
-let country = localStorage.getItem("country") //Obtener datos pagina index (país, liga y competición)
-let league = localStorage.getItem("league")
-let competitionId = localStorage.getItem("CompetitionId")
-let icon = `<link rel="icon" type="image/png" href="./Imagenes/logo ${country}.png"/>` //Obtener datos para icono y título de la página
-let name = `<title>${league}</title>`
-let image = `<a href="./league.html"><img  src="./Imagenes/logo ${country}.png" alt="" width = "50" height = "50"></a>`
-let url = `https://api.sportsdata.io/v3/soccer/scores/json/CompetitionDetails/${competitionId}?key=${keyAPI}` //Obtener url's para adquirir la info
-let urlSearch = `https://api.sportsdata.io/v3/soccer/scores/json/MembershipsByCompetition/${competitionId}?key=${keyAPI}`
-let urlScorers = `https://api.sportsdata.io/v3/soccer/scores/json/CompetitionDetails/${competitionId}?key=${keyAPI}`
+let country = localStorage.getItem("country") //Obtener datos pagina index (país)
+let league = localStorage.getItem("league") //Obtener datos pagina index (liga)
+let competitionId = localStorage.getItem("CompetitionId") //Obtener datos pagina index (competición)
+let icon = `<link rel="icon" type="image/png" href="./Imagenes/logo ${country}.png"/>` //Link para icono de la página
+let name = `<title>${league}</title>` //Título de la página
+let image = `<a href="./league.html"><img  src="./Imagenes/logo ${country}.png" alt="" width = "50" height = "50"></a>` //Con el dato "competición" obtenido arriba, se carga la imagen de la liga en el cabecero
+let url = `https://api.sportsdata.io/v3/soccer/scores/json/CompetitionDetails/${competitionId}?key=${keyAPI}` //Obtener url para adquirir la info
 let mensaje = "" //String para publicar escudos en el header
 let lista = "" //String para publicar nombres jugadores en la búsqueda
 
@@ -71,52 +69,11 @@ function ocultar_buscador() {
     box_search.style.display = "none";
 }
 
-let arrayFavoritos = []
-let objetFavoritos = {}
-
-for (let i = 0; i < 3; i++) {
-    objetFavoritos.id = `localStorage.getItem(porteroId${i + 1})`
-    objetFavoritos.nombre = `localStorage.getItem(porteroId${i + 1})`
-    arrayFavoritos[i] = objetFavoritos
-}
-for (let i = 0; i < 7; i++) {
-    objetFavoritos.id = `localStorage.getItem(defensaId${i + 1})`
-    objetFavoritos.nombre = `localStorage.getItem(defensaId${i + 1})`
-    arrayFavoritos[i + 3] = objetFavoritos
-}
-for (let i = 0; i < 9; i++) {
-    objetFavoritos.id = `localStorage.getItem(medioId${i + 1})`
-    objetFavoritos.nombre = `localStorage.getItem(medioId${i + 1})`
-    arrayFavoritos[i + 10] = objetFavoritos
-}
-for (let i = 0; i < 4; i++) {
-    objetFavoritos.id = `localStorage.getItem(delanteroId${i + 1})`
-    objetFavoritos.nombre = `localStorage.getItem(delanteroId${i + 1})`
-    arrayFavoritos[i + 19] = objetFavoritos
-}
-
-let mensajeBusqueda = ""
-for (let i = 0; i < 3; i++) {
-    mensajeBusqueda += `
-<li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar(${arrayFavoritos[i].id}))>localStorage.getItem(${arrayFavoritos[i].nombre})</a></li>
-`
-}
-for (let i = 0; i < 7; i++) {
-    mensajeBusqueda += `
-<li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar(${arrayFavoritos[i + 3].id})>localStorage.getItem(${arrayFavoritos[i + 3].nombre})</a></li>
-`
-}
-for (let i = 0; i < 9; i++) {
-    mensajeBusqueda += `
-<li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar(${arrayFavoritos[i + 10].id})>${arrayFavoritos[i + 10].nombre})</a></li>
-`
-}
-for (let i = 0; i < 4; i++) {
-    mensajeBusqueda += `
-<li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar(localStorage.getItem(${arrayFavoritos[i + 19].id})>localStorage.getItem(${arrayFavoritos[i + 19].nombre})</a></li>
-`
-}
-document.getElementById("box-search").innerHTML = mensajeBusqueda
+//Lista donde buscar (jugadores favoritos)
+let array = []
+array = JSON.parse(localStorage.getItem("eleccionFavoritos"))
+console.log(array)
+/* <li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar("Spain")>La Liga</a></li> */
 
 //Funcion para ir a la liga seleccionada
 function entrar(country) {
@@ -211,7 +168,7 @@ function seleccion() {
     let escudoVisitante
     let estadio
 
-    fetch(urlScorers).then(function (respuesta) {
+    fetch(url).then(function (respuesta) {
         return respuesta.json();
     }).then(function (datos) {
         if (datos.statusCode) {
@@ -409,7 +366,7 @@ function seleccion() {
                                 </tr>`
                         }
                     }
-                    document.getElementById("clasificacion").innerHTML = mensajeClasificacion
+                    document.getElementById("datosClasificacion").innerHTML = mensajeClasificacion
                 }
             })
         }
@@ -418,61 +375,36 @@ function seleccion() {
 
 
 /* Footer */
-let porterosFavoritos = 0
-let jugador1 = localStorage.getItem("porteroId1")
-let jugador2 = localStorage.getItem("porteroId2")
-let jugador3 = localStorage.getItem("porteroId3")
+//Saco del almacenamiento local cuantos jugadores por posicion hemos seleccionado y los muestro en el footer
+let footerPortero = localStorage.getItem("porterosFavoritos")
 
-if (jugador1 == null && jugador2 == null && jugador3 == null) {
+if (footerPortero == 0 || footerPortero == null) {
     document.getElementById("totalPorteros").innerHTML = "No hay porteros seleccionados"
-} else {
-    porterosFavoritos += 1
-    document.getElementById("totalPorteros").innerHTML = `Hay seleccionados ${porterosFavoritos} de 3 porteros`
+} else if (footerPortero > 0) {
+    document.getElementById("totalPorteros").innerHTML = `Hay seleccionados ${footerPortero} de 3 porteros`
 }
 
-let defensasFavoritos = 0
-let jugador4 = localStorage.getItem("defensaId1")
-let jugador5 = localStorage.getItem("defensaId2")
-let jugador6 = localStorage.getItem("defensaId3")
-let jugador7 = localStorage.getItem("defensaId4")
-let jugador8 = localStorage.getItem("defensaId5")
-let jugador9 = localStorage.getItem("defensaId6")
-let jugador10 = localStorage.getItem("defensaId7")
+let footerDefensa = localStorage.getItem("defensasFavoritos")
 
-if (jugador4 == null && jugador5 == null && jugador6 == null && jugador7 == null && jugador8 == null && jugador9 == null && jugador10 == null) {
+if (footerDefensa == 0 || footerDefensa == null) {
     document.getElementById("totalDefensas").innerHTML = "No hay defensas seleccionados"
-} else {
-    defensasFavoritos += 1
-    document.getElementById("totalDefensas").innerHTML = `Hay seleccionados ${defensasFavoritos} de 7 defensas`
+} else if (footerDefensa > 0) {
+    document.getElementById("totalDefensas").innerHTML = `Hay seleccionados ${footerDefensa} de 7 defensas`
 }
 
-let mediosFavoritos = 0
-let jugador11 = localStorage.getItem("medioId1")
-let jugador12 = localStorage.getItem("medioId2")
-let jugador13 = localStorage.getItem("medioId3")
-let jugador14 = localStorage.getItem("medioId4")
-let jugador15 = localStorage.getItem("medioId5")
-let jugador16 = localStorage.getItem("medioId6")
-let jugador17 = localStorage.getItem("medioId7")
-let jugador18 = localStorage.getItem("medioId8")
-let jugador19 = localStorage.getItem("medioId9")
+let footerMedio = localStorage.getItem("mediosFavoritos")
 
-if (jugador11 == null && jugador12 == null && jugador13 == null && jugador14 == null && jugador15 == null && jugador16 == null && jugador17 == null && jugador18 == null && jugador19 == null) {
+if (footerMedio == 0 || footerMedio == null) {
     document.getElementById("totalMedios").innerHTML = "No hay medios seleccionados"
-} else {
-    mediosFavoritos += 1
-    document.getElementById("totalMedios").innerHTML = `Hay seleccionados ${mediosFavoritos} de 9 medios`
+} else if (footerMedio > 0) {
+    document.getElementById("totalMedios").innerHTML = `Hay seleccionados ${footerMedio} de 9 medios`
 }
 
-let delanterosFavoritos = 0
-let jugador20 = localStorage.getItem("delanteroId1")
-let jugador21 = localStorage.getItem("delanteroId2")
-let jugador22 = localStorage.getItem("delanteroId3")
-let jugador23 = localStorage.getItem("delanteroId4")
+let footerDelantero = localStorage.getItem("delanterosFavoritos")
 
-if (jugador20 == null && jugador21 == null && jugador22 == null && jugador23 == null) {
+if (footerDelantero == 0 || footerDelantero == null) {
     document.getElementById("totalDelanteros").innerHTML = "No hay delanteros seleccionados"
-} else {
-    delanterosFavoritos += 1
-    document.getElementById("totalDelanteros").innerHTML = `Hay seleccionados ${delanterosFavoritos} de 4 delanteros`
+} else if (footerDelantero > 0) {
+    document.getElementById("totalDelanteros").innerHTML = `Hay seleccionados ${footerDelantero} de 4 delanteros`
 }
+

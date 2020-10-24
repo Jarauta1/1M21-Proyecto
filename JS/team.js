@@ -12,13 +12,13 @@ let urlEstadisticas = `https://api.sportsdata.io/v3/soccer/scores/json/TeamSeaso
 let mensajeFicha
 let mensajePlantilla
 let mensaje = ""
-let mensajePortero = ""
-let portero
-let defensa
-let medio
-let delanero
+let mensajePortero = "" //String para meter las "cartas FIFA" de los porteros
+let mensajeDefensa = "" //String para meter las "cartas FIFA" de los defensas
+let mensajeMedio = "" //String para meter las "cartas FIFA" de los medios
+let mensajeDelantero = "" //String para meter las "cartas FIFA" de los delanteros
+
 let jugadorId = ""
-let arrayIndices = []
+let arrayIndices = [] //Array donde guardamos los jugadores favoritos y su información
 
 /* Header de la página */
 fetch(url).then(function (respuesta) {
@@ -35,6 +35,7 @@ fetch(url).then(function (respuesta) {
                 document.getElementById("head").innerHTML = icon + name */
                 document.getElementById("escudoTeam").innerHTML = `<img id ="teamShield" src="${datos.Teams[i].WikipediaLogoUrl}" title="${datos.Teams[i].Name}" value="${datos.Teams[i].TeamId}" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height ="">`
                 document.getElementById("nombreTeam").innerHTML = `<div><h1>${datos.Teams[i].FullName}</h1></div><h3>${datos.Teams[i].AreaName}</h3><div></div>`
+                let escudo = datos.Teams[i].WikipediaLogoUrl
                 let estadioId = datos.Teams[i].VenueId
                 let paisClub = datos.Teams[i].AreaName
                 let fundadoClub = datos.Teams[i].Founded
@@ -101,22 +102,58 @@ fetch(url).then(function (respuesta) {
                                                         for (let i = 0; i < datos.Teams.length; i++) {
                                                             if (teamId == datos.Teams[i].TeamId) {
                                                                 for (let j = 0; j < datos.Teams[i].Players.length; j++) {
-                                                                    mensaje = `<div class="wrapper">
-                                                                    <!-- *** fut-player-card ***-->
+                                                                    let posicion
+                                                                    //Declaro variable "posicion" para traducir las posiciones al "español"
+                                                                    let functionAdd
+                                                                    //Declaro variable "functionAdd" para nombrar la función que debe realizar (según la posicion del jugador)
+                                                                    if (datos.Teams[i].Players[j].Position == "GK") {
+                                                                        posicion = "PT"
+                                                                        functionAdd = "Portero"
+                                                                    } else if (datos.Teams[i].Players[j].Position == "D") {
+                                                                        posicion = "DF"
+                                                                        functionAdd = "Defensa"
+                                                                    } else if (datos.Teams[i].Players[j].Position == "M") {
+                                                                        posicion = "MD"
+                                                                        functionAdd = "Medio"
+                                                                    } else if (datos.Teams[i].Players[j].Position == "A") {
+                                                                        posicion = "DL"
+                                                                        functionAdd = "Delantero"
+                                                                    }
+                                                                    let pie
+                                                                    //Declaro variable "pie" para traducir si un jugador es diestro o zurdo
+                                                                    if (datos.Teams[i].Players[j].Foot == "Left") {
+                                                                        pie = "IZ"
+                                                                    } else if (datos.Teams[i].Players[j].Foot == "Right") {
+                                                                        pie = "DR"
+                                                                    }
+                                                                    let dia
+                                                                    let mes
+                                                                    let anyo
+                                                                    //Declaro las tres variables para poner fecha de nacimiento
+                                                                    let fecha = datos.Teams[i].Players[j].BirthDate
+                                                                    dia = fecha.substring(8,10)
+                                                                    mes = fecha.substring(5,7)
+                                                                    anyo = fecha.substring(2,4)
+                                                                    //Relleno de carta "FIFA" y guardar para luego mostrar
+                                                                    mensaje = `<div class="cartaFIFA">
+                                                                    <br>
                                                                     <div class="fut-player-card">
-                                                                      <!-- Player Card Top-->
+                                                                      <!-- Parte arriba de la tarjeta -->
                                                                       <div class="player-card-top">
                                                                         <div class="player-master-info">
                                                                           <div class="player-rating"><span>${datos.Teams[i].Players[j].Jersey}</span></div>
-                                                                          <div class="player-position"><span>${datos.Teams[i].Players[j].Position}</span></div>
-                                                                          <div class="player-nation"><img src="" alt="Argentina" draggable="false"/></div>
-                                                                          <div class="player-club"><img src="https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg" alt="Barcelona" draggable="false"/></div>
-                                                                        </div>
-                                                                        <div class="player-picture"><img src="${datos.Teams[i].Players[j].PhotoUrl}" alt="Messi" draggable="false"/>
+                                                                          <div class="player-position"><span>${posicion}</span></div>
+                                                                          <!-- Imagen del pais y escudo del jugador -->
+                                                                          <!-- En la imagen del pais, estan en una carpeta con el proyecto, en caso de no coincidir el nombre con un archivo, pone una bandera generica (tambien ubicada en la carpeta) -->
+                                                                          <!-- En la imagen del equipo, si la url no carga pone una imagen genérica (escudo en la carpeta de imagenes) -->
+                                                                          <div class="player-nation"><img src="./Imagenes/Paises/${datos.Teams[i].Players[j].Nationality}.png" onerror ="this.onerror=null;this.src='./Imagenes/Paises/generico.png'" alt="" draggable="false"/></div>
+                                                                          <div class="player-club"><img src="${escudo}" alt="" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" draggable="false"/></div>
+                                                                        </div> 
+                                                                        <div class="player-picture"><img src="${datos.Teams[i].Players[j].PhotoUrl}" alt="${datos.Teams[i].Players[j].ShortName}" draggable="false"/>
                                                                           
                                                                         </div>
                                                                       </div>
-                                                                      <!-- Player Card Bottom-->
+                                                                      <!-- Parte abajo de la tarjeta-->
                                                                       <div class="player-card-bottom">
                                                                         <div class="player-info">
                                                                           <!-- Player Name-->
@@ -128,42 +165,52 @@ fetch(url).then(function (respuesta) {
                                                                                 <div class="player-feature-title">CM</div></span><span>
                                                                                 <div class="player-feature-value">${datos.Teams[i].Players[j].Weight}</div>
                                                                                 <div class="player-feature-title">KG</div></span><span>
-                                                                                <div class="player-feature-value">94</div>
-                                                                                <div class="player-feature-title">PAS</div></span></div>
+                                                                                <div class="player-feature-value">${pie}</div>
+                                                                                <div class="player-feature-title">PIE</div></span></div>
                                                                             <div class="player-features-col"><span>
-                                                                                <div class="player-feature-value">99</div>
-                                                                                <div class="player-feature-title">DRI</div></span><span>
-                                                                                <div class="player-feature-value">35</div>
-                                                                                <div class="player-feature-title">DEF</div></span><span>
-                                                                                <div class="player-feature-value">68</div>
-                                                                                <div class="player-feature-title">PHY</div></span></div>
+                                                                                <div class="player-feature-value">${dia}</div>
+                                                                                <div class="player-feature-title">DIA</div></span><span>
+                                                                                <div class="player-feature-value">${mes}</div>
+                                                                                <div class="player-feature-title">MES</div></span><span>
+                                                                                <div class="player-feature-value">${anyo}</div>
+                                                                                <div class="player-feature-title">AÑO</div></span></div>
                                                                           </div>
                                                                         </div>
                                                                       </div>
-                                                                    </div>
-                                                                  </div>
-                                                                      <button id="porteroId" type="button" value="" onclick="addPortero(${j})">Añadir a mi equipo</button>
-                                                                      </div>`
+                                                                      </div>
+                                                                      <br>
+                                                                      <a id="porteroId" class="botonAdd" href="#" onclick="add${functionAdd}(${j})">
+                                                                      <span></span>
+                                                                      <span></span>
+                                                                      <span></span>
+                                                                      <span></span>
+                                                                      Añadir a mi equipo
+                                                                  </a>
+                                                                          </div>
+                                                                          
+                                                                          </div>`
 
+                                                                    //Depende de la posición de cada jugador, lo metemos en un cuadro u otro
+                                                                    //También almacenamos en un array toda la información de ese jugador
                                                                     if (datos.Teams[i].Players[j].Position == "GK") {
                                                                         arrayIndices.push(datos.Teams[i].Players[j])
                                                                         mensajePortero += mensaje
                                                                     } else if (datos.Teams[i].Players[j].Position == "D") {
                                                                         arrayIndices.push(datos.Teams[i].Players[j])
-                                                                        defensa = document.getElementById("cuadroDefensas")
+                                                                        mensajeDefensa += mensaje
                                                                     } else if (datos.Teams[i].Players[j].Position == "M") {
                                                                         arrayIndices.push(datos.Teams[i].Players[j])
-                                                                        medio = document.getElementById("cuadroMedios")
+                                                                        mensajeMedio += mensaje
                                                                     } else if (datos.Teams[i].Players[j].Position == "A") {
                                                                         arrayIndices.push(datos.Teams[i].Players[j])
-                                                                        delantero = document.getElementById("cuadroDelanteros")
+                                                                        mensajeDelantero += mensaje
 
                                                                     }
                                                                 }
 
 
                                                                 mensajeFicha = `
-                                                                <div id="fichaGeneral" style="background-color:">
+                                                                <div id="fichaGeneral">
                                                         <div id="club">
                                                         <div class="flex">
                                                             <div class="div5"></div>
@@ -324,38 +371,21 @@ fetch(url).then(function (respuesta) {
                                                                 </div>
                                                                 <div id="cuadroDelanteros"></div>
                                                             </div>`
-
-
                                                             }
                                                         }
-
-
                                                     }
                                                 })
-
                                             }
                                         }
                                     }
                                 })
-
                             }
                         }
                     }
-
                 })
-
-
-
-
             }
-
-
         }
     }
-
-
-
-
 })
 
 function ficha() {
@@ -365,24 +395,29 @@ function ficha() {
 function plantilla() {
     document.getElementById("mostrarOpcion").innerHTML = mensajePlantilla
     document.getElementById("cuadroPorteros").innerHTML = mensajePortero
-    defensa.innerHTML = mensaje
-    medio.innerHTML = mensaje
-    delantero.innerHTML = mensaje
+    document.getElementById("cuadroDefensas").innerHTML = mensajeDefensa
+    document.getElementById("cuadroMedios").innerHTML = mensajeMedio
+    document.getElementById("cuadroDelanteros").innerHTML = mensajeDelantero
 }
 
 let arrayJugadoresFavoritos = []
-let p = 1
-let d = 1
-let m = 1
-let a = 1
-
+let p = 0
+let d = 0
+let m = 0
+let a =0
+localStorage.setItem("porterosFavoritos",p) //error cada vez me hace un reset, lo mismo pasa con la tabla de favoritos
 function addPortero(jugadorPortero) {
-    if (p < 4) {
-        arrayJugadoresFavoritos.push(arrayIndices[jugadorPortero])
+    console.log(jugadorPortero)
+    console.log(arrayIndices[jugadorPortero])
+    p = localStorage.getItem("porterosFavoritos")
+    if (p < 3) {
+        arrayJugadoresFavoritos.push(arrayIndices[jugadorPortero]) //De la tabla con todos los jugadores que creamos al generar su ficha, cojo los datos y los paso a otra tabla, la de favoritos
         p++;
+        console.log(arrayJugadoresFavoritos)
         window.alert("Seleccionado")
         /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorPortero].ShortName} a tu equipo. 
         Porteros seleccionados: ${p}/3`) */
+        localStorage.setItem("porterosFavoritos", p)
         localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los tres porteros seleccionados")
@@ -390,12 +425,14 @@ function addPortero(jugadorPortero) {
 }
 
 function addDefensa(jugadorDefensa) {
-    if (d < 8) {
+    d = localStorage.getItem("defensasFavoritos")
+    if (d < 7) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorDefensa])
         d++;
         window.alert("Seleccionado")
         /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorDefensa].ShortName} a tu equipo. 
         Porteros seleccionados: ${d}/7`) */
+        localStorage.setItem("defensasFavoritos", d)
         localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los siete defensas seleccionados")
@@ -403,12 +440,14 @@ function addDefensa(jugadorDefensa) {
 }
 
 function addMedio(jugadorMedio) {
-    if (m < 10) {
+    m = localStorage.getItem("mediosFavoritos")
+    if (m < 9) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorMedio])
         m++;
         window.alert("Seleccionado")
         /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorMedio].ShortName} a tu equipo. 
         Porteros seleccionados: ${m}/9`) */
+        localStorage.setItem("mediosFavoritos", m)
         localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los nueve medios seleccionados")
@@ -416,15 +455,17 @@ function addMedio(jugadorMedio) {
 }
 
 function addDelantero(jugadorDelantero) {
-    if (a < 5) {
+    a = localStorage.getItem("delanterosFavoritos")
+    if (a < 4) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorDelantero])
         d++;
         window.alert("Seleccionado")
         /* window.alert(`Has añadido a ${arrayJugadoresDelantero[jugadorPortero].ShortName} a tu equipo. 
         Porteros seleccionados: ${a}/4`) */
+        localStorage.setItem("delanterosFavoritos", d)
         localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
-        window.alert("Ya tienes los cindo delanteros seleccionados")
+        window.alert("Ya tienes los cinco delanteros seleccionados")
     }
 }
 
@@ -432,86 +473,38 @@ function addDelantero(jugadorDelantero) {
 
 
 /* Footer */
-/* let porterosFavoritos = 0
-let jugador1 = localStorage.getItem("porteroId1")
-let jugador2 = localStorage.getItem("porteroId2")
-let jugador3 = localStorage.getItem("porteroId3")
+//Saco del almacenamiento local cuantos jugadores por posicion hemos seleccionado y los muestro en el footer
+let footerPortero = localStorage.getItem("porterosFavoritos")
 
-if (jugador1 == null && jugador2 == null && jugador3 == null) {
+if (footerPortero == 0 || footerPortero == null) {
     document.getElementById("totalPorteros").innerHTML = "No hay porteros seleccionados"
-} else {
-    porterosFavoritos += 1
-    document.getElementById("totalPorteros").innerHTML = `Hay seleccionados ${porterosFavoritos} de 3 porteros`
+} else if (footerPortero > 0) {
+    document.getElementById("totalPorteros").innerHTML = `Hay seleccionados ${footerPortero} de 3 porteros`
 }
 
-let defensasFavoritos = 0
-let jugador4 = localStorage.getItem("defensaId1")
-let jugador5 = localStorage.getItem("defensaId2")
-let jugador6 = localStorage.getItem("defensaId3")
-let jugador7 = localStorage.getItem("defensaId4")
-let jugador8 = localStorage.getItem("defensaId5")
-let jugador9 = localStorage.getItem("defensaId6")
-let jugador10 = localStorage.getItem("defensaId7")
+let footerDefensa = localStorage.getItem("defensasFavoritos")
 
-if (jugador4 == null && jugador5 == null && jugador6 == null && jugador7 == null && jugador8 == null && jugador9 == null && jugador10 == null) {
+if (footerDefensa == 0 || footerDefensa == null) {
     document.getElementById("totalDefensas").innerHTML = "No hay defensas seleccionados"
-} else {
-    defensasFavoritos += 1
-    document.getElementById("totalDefensas").innerHTML = `Hay seleccionados ${defensasFavoritos} de 7 defensas`
+} else if (footerDefensa > 0) {
+    document.getElementById("totalDefensas").innerHTML = `Hay seleccionados ${footerDefensa} de 7 defensas`
 }
 
-let mediosFavoritos = 0
-let jugador11 = localStorage.getItem("medioId1")
-let jugador12 = localStorage.getItem("medioId2")
-let jugador13 = localStorage.getItem("medioId3")
-let jugador14 = localStorage.getItem("medioId4")
-let jugador15 = localStorage.getItem("medioId5")
-let jugador16 = localStorage.getItem("medioId6")
-let jugador17 = localStorage.getItem("medioId7")
-let jugador18 = localStorage.getItem("medioId8")
-let jugador19 = localStorage.getItem("medioId9")
+let footerMedio = localStorage.getItem("mediosFavoritos")
 
-if (jugador11 == null && jugador12 == null && jugador13 == null && jugador14 == null && jugador15 == null && jugador16 == null && jugador17 == null && jugador18 == null && jugador19 == null) {
+if (footerMedio == 0 || footerMedio == null) {
     document.getElementById("totalMedios").innerHTML = "No hay medios seleccionados"
-} else {
-    mediosFavoritos += 1
-    document.getElementById("totalMedios").innerHTML = `Hay seleccionados ${mediosFavoritos} de 9 medios`
+} else if (footerMedio > 0) {
+    document.getElementById("totalMedios").innerHTML = `Hay seleccionados ${footerMedio} de 9 medios`
 }
 
-let delanterosFavoritos = 0
-let jugador20 = localStorage.getItem("delanteroId1")
-let jugador21 = localStorage.getItem("delanteroId2")
-let jugador22 = localStorage.getItem("delanteroId3")
-let jugador23 = localStorage.getItem("delanteroId4")
+let footerDelantero = localStorage.getItem("delanterosFavoritos")
 
-if (jugador20 == null && jugador21 == null && jugador22 == null && jugador23 == null) {
+if (footerDelantero == 0 || footerDelantero == null) {
     document.getElementById("totalDelanteros").innerHTML = "No hay delanteros seleccionados"
-} else {
-    delanterosFavoritos += 1
-    document.getElementById("totalDelanteros").innerHTML = `Hay seleccionados ${delanterosFavoritos} de 4 delanteros`
+} else if (footerDelantero > 0) {
+    document.getElementById("totalDelanteros").innerHTML = `Hay seleccionados ${footerDelantero} de 4 delanteros`
 }
 
 
-let arrayFavoritos = []
-let objetFavoritos = {}
 
-for (let i = 0; i < 3; i++) {
-    objetFavoritos.id = `localStorage.getItem(porteroId${i + 1})`
-    objetFavoritos.nombre = `localStorage.getItem(porteroId${i + 1})`
-    arrayFavoritos[i] = objetFavoritos
-}
-for (let i = 0; i < 7; i++) {
-    objetFavoritos.id = `localStorage.getItem(defensaId${i + 1})`
-    objetFavoritos.nombre = `localStorage.getItem(defensaId${i + 1})`
-    arrayFavoritos[i + 3] = objetFavoritos
-}
-for (let i = 0; i < 9; i++) {
-    objetFavoritos.id = `localStorage.getItem(medioId${i + 1})`
-    objetFavoritos.nombre = `localStorage.getItem(medioId${i + 1})`
-    arrayFavoritos[i + 10] = objetFavoritos
-}
-for (let i = 0; i < 4; i++) {
-    objetFavoritos.id = `localStorage.getItem(delanteroId${i + 1})`
-    objetFavoritos.nombre = `localStorage.getItem(delanteroId${i + 1})`
-    arrayFavoritos[i + 19] = objetFavoritos
-} */
