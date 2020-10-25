@@ -131,10 +131,10 @@ fetch(url).then(function (respuesta) {
                                                                     let anyo
                                                                     //Declaro las tres variables para poner fecha de nacimiento
                                                                     let fecha = datos.Teams[i].Players[j].BirthDate
-                                                                    dia = fecha.substring(8,10)
-                                                                    mes = fecha.substring(5,7)
-                                                                    anyo = fecha.substring(2,4)
-                                                                    //Relleno de carta "FIFA" y guardar para luego mostrar
+                                                                    dia = fecha.substring(8, 10)
+                                                                    mes = fecha.substring(5, 7)
+                                                                    anyo = fecha.substring(2, 4)
+                                                                    //Relleno de carta "FIFA" y boton guardar para luego mostrar
                                                                     mensaje = `<div class="cartaFIFA">
                                                                     <br>
                                                                     <div class="fut-player-card">
@@ -400,15 +400,45 @@ function plantilla() {
     document.getElementById("cuadroDelanteros").innerHTML = mensajeDelantero
 }
 
-let arrayJugadoresFavoritos = []
-let p = 0
-let d = 0
-let m = 0
-let a =0
-localStorage.setItem("porterosFavoritos",p) //error cada vez me hace un reset, lo mismo pasa con la tabla de favoritos
+//Declaro el array para jugadores seleccionados
+let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos")) //Miro si existe una variable guardada en localStorage
+if (arrayJugadoresFavoritos == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
+    arrayJugadoresFavoritos = []
+    arrayJugadoresFavoritos = localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+}
+
+//Declaro cuatro variables para hacer de contadores de jugadores metidos en favoritos (una por bloque de posiciones)
+let p = localStorage.getItem("porterosFavoritos") //Miro si existe una variable guardada en localStorage
+if (p == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
+    p = 0
+    p = localStorage.setItem("porterosFavoritos", p)
+}
+
+let d = localStorage.getItem("defensasFavoritos")
+if (d == null) {
+    d = 0
+    d = localStorage.setItem("defensasFavoritos", d)
+}
+
+let m = localStorage.getItem("mediosFavoritos")
+if (m == null) {
+    m = 0
+    m = localStorage.setItem("mediosFavoritos", m)
+}
+
+let a = localStorage.getItem("delanterosFavoritos")
+if (a == null) {
+    a = 0
+    a = localStorage.setItem("delanterosFavoritos", a)
+}
+
+//Funcion para añadir jugadores a favoritos. Recibimos el indice del arrayIndices donde estan todos los jugadores de ese equipo, lo seleccionaremos con ese indice y lo pasaremos a nuestro "arrayJugadoresFavoritos con un push"
 function addPortero(jugadorPortero) {
-    console.log(jugadorPortero)
-    console.log(arrayIndices[jugadorPortero])
+    let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos")) //Miro si existe una variable guardada en localStorage
+    if (arrayJugadoresFavoritos == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
+        arrayJugadoresFavoritos = []
+        arrayJugadoresFavoritos = localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+    }
     p = localStorage.getItem("porterosFavoritos")
     if (p < 3) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorPortero]) //De la tabla con todos los jugadores que creamos al generar su ficha, cojo los datos y los paso a otra tabla, la de favoritos
@@ -418,13 +448,18 @@ function addPortero(jugadorPortero) {
         /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorPortero].ShortName} a tu equipo. 
         Porteros seleccionados: ${p}/3`) */
         localStorage.setItem("porterosFavoritos", p)
-        localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los tres porteros seleccionados")
     }
 }
 
 function addDefensa(jugadorDefensa) {
+    let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos")) //Miro si existe una variable guardada en localStorage
+    if (arrayJugadoresFavoritos == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
+        arrayJugadoresFavoritos = []
+        arrayJugadoresFavoritos = localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+    }
     d = localStorage.getItem("defensasFavoritos")
     if (d < 7) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorDefensa])
@@ -432,14 +467,19 @@ function addDefensa(jugadorDefensa) {
         window.alert("Seleccionado")
         /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorDefensa].ShortName} a tu equipo. 
         Porteros seleccionados: ${d}/7`) */
-        localStorage.setItem("defensasFavoritos", d)
-        localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("d", d)
+        localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los siete defensas seleccionados")
     }
 }
 
 function addMedio(jugadorMedio) {
+    let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos")) //Miro si existe una variable guardada en localStorage
+    if (arrayJugadoresFavoritos == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
+        arrayJugadoresFavoritos = []
+        arrayJugadoresFavoritos = localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+    }
     m = localStorage.getItem("mediosFavoritos")
     if (m < 9) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorMedio])
@@ -448,13 +488,18 @@ function addMedio(jugadorMedio) {
         /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorMedio].ShortName} a tu equipo. 
         Porteros seleccionados: ${m}/9`) */
         localStorage.setItem("mediosFavoritos", m)
-        localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los nueve medios seleccionados")
     }
 }
 
 function addDelantero(jugadorDelantero) {
+    let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos")) //Miro si existe una variable guardada en localStorage
+    if (arrayJugadoresFavoritos == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
+        arrayJugadoresFavoritos = []
+        arrayJugadoresFavoritos = localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+    }
     a = localStorage.getItem("delanterosFavoritos")
     if (a < 4) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorDelantero])
@@ -463,7 +508,7 @@ function addDelantero(jugadorDelantero) {
         /* window.alert(`Has añadido a ${arrayJugadoresDelantero[jugadorPortero].ShortName} a tu equipo. 
         Porteros seleccionados: ${a}/4`) */
         localStorage.setItem("delanterosFavoritos", d)
-        localStorage.setItem("eleccionFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los cinco delanteros seleccionados")
     }
