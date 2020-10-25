@@ -188,88 +188,74 @@ color: white;
   width: 25%;
 }
 
-#icon-search {
+#iconSearch {
   cursor: pointer;
 }
 
-#ctn-icon-search {
-  position: absolute;
-  right: 20px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#ctn-icon-search i{
-  font-size: 14px;
-  color: #777777;
-  cursor: pointer;
-  transition: all 300ms;
-}
-
-#ctn-icon-search i:hover{
-  color: #46a2fd;
-}
-
-#ctn-bars-search{
+#contenedorBarraSearch{
   position: fixed;
   top: 20px;
-  right: -100000px; /*  */
-  width: 40%; /*  */
-  padding: 0px; /*  */
+  right: -100000px;
+  width: 40%;
+  padding: 0px;
   transition: all 600ms;
 }
 
-#ctn-bars-search input{
+#contenedorBarraSearch input{
   display: block;
-  width: 40%; /*  */
+  width: 40%;
   margin: auto;
   padding: 10px;
   font-size: 18px;
   outline: 0;
 }
 
-#box-search{
+/* Esto indica la posicion del desplegable de busqueda de jugadores, ya que daba error para ponerlo justo debajo del cuadro de busqueda, hago que sea a anchura completa */
+/* #boxSearch{
   position: fixed;
   top: 40px;
-  right: 10%;
+  right: -10px;
   transform: translateX(-50%);
-  width: 40%; /*  */
+  width: 40%;
+
+} */
+
+#boxSearch {
+  list-style: none;
   background: rgba(255, 255, 255, 0);
-  z-index: 9; /*  */
+  z-index: 9;
   overflow: hidden;
   display: none;
-  list-style: none;
 }
 
-#box-search li a{
+#boxSearch li a{
   display: block;
-  width: 40%; /*  */
+  right: -10px;
+  width: 90%;
   color: #777777;
   padding: 12px 20px;
   background-color: white;
   list-style: none;
 }
 
-#box-search li a:hover{
+#boxSearch li a:hover{
   background: rgb(170,170,170,0.2);
   list-style: none;
 }
 
-#box-search li a img{
+#boxSearch li a img{
   margin-right: 10px;
   color: #777777;
 }
 
 
-#cover-ctn-search{
+#contenedorPaginaSearch{
   width: 100%;
   height: 100%;
   position: fixed;
   left: 0;
-  background: rgb(0,0,0,0.5); /*  */
-  z-index: 2; /*  */
+  background: rgb(0,0,0,0.5);
+  z-index: 2;
   display: none;
 }
 
@@ -698,6 +684,10 @@ justify-content: right;
 /* ------------------ */
 * {
   box-sizing: border-box;
+}
+
+#mostrarOpcion {
+  margin: 0% 5% 0% 5%;
 }
 
 .cartaFIFA {
@@ -1454,3 +1444,267 @@ ul#starting_11 .selected {
 ul#starting_11 .selected img {
   z-index: -1;
 }
+
+/* ----------------------- */
+/* Página Jugador Favorito */
+/* ----------------------- */
+
+.bodyFav {
+  width: 100%;
+  height: 100%;
+}
+
+#mainContainer{
+  font-family: 'Arimo', sans-serif;
+  width:50%;
+  height:650px;
+  margin:0 auto;
+  margin-top:100px;
+  box-shadow: 0 0 15px #2323;
+  display:flex;
+  align-items:center; 
+  padding:8px 20px;
+}
+.center{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.imgHolder{
+  height:900px;
+  position:relative;
+  left:70px;
+}
+.imgHolder >img{
+  height:850px;
+}
+.content{
+  height:600px;
+  width:400px;
+  margin-left:10px;
+}
+.content > .header{
+  height:90px;
+  display:flex;
+  align-items:center;
+  padding-left:20px;
+}
+.content > .header > .logoHolder{
+  height:70px;
+  width:70px;
+  margin-right:20px;
+}
+.content > .header > .logoHolder > img{
+  height:65px;
+}
+.content > .header > h1{
+  color:#368caf;
+  letter-spacing:2px;
+}
+.content > .bio{
+  height:100px;
+  padding:10px 38px;
+  line-height:2.2em;
+  letter-spacing:2px;
+  font-weight:bolder;
+  font-size:14px;
+}
+.details{
+  width:320px;
+  height:250px;
+  margin:0 auto;
+  margin-top:8px;
+}
+.details > .header{
+  padding:8px;
+  background:#0097c3;
+  width:90px;
+  color:white;
+  letter-spacing:2px;
+  font-size:12px;
+  font-weight:bolder;
+}
+.info{
+  display:flex;
+  margin-top:12px;
+}
+.info > div{
+  width:120px;
+}
+.info >.right{
+  width:200px;
+}
+.left > div,.right > div{
+  width:inherit;
+  height:25px;
+  display:flex;
+  align-items:center;
+  font-size:14px;
+  font-weight:bolder;
+  letter-spacing:2px;
+  margin-bottom:8px;
+}
+.left{
+  color:#cdcdcd;
+}
+.position{
+  width:320px;
+  height:100px;
+  margin:0 auto;
+  margin-top:20px;
+}
+.position > .common{
+  display:flex;
+  height:30px;
+  margin-top:8px;
+}
+.position > .common > div{
+  width:160px;
+  display:flex;
+  align-items:center;
+  font-weight:bolder;
+  font-size:14px;
+}
+.down > div{
+  padding-left:8px;
+}
+.position > .common > div > .header{
+  padding:8px;
+  background:#0097c3;
+  width:100px;
+  color:white;
+  letter-spacing:2px;
+  font-size:12px;
+  font-weight:bolder;
+  text-align:center;
+}
+.leftFooter{
+  height:inherit;
+  border-left:2px solid #0097c3;
+  position:relative;
+  left:150px;
+}
+.leftFooter >.icons{
+  width:50px;
+  text-align:center;
+  color:#0097c3;
+  position:relative;
+  left:-25px;
+  top:50px;
+  background:white;
+}
+.leftFooter >.icons > i{
+  padding:12px;
+  font-size:20px;
+  border-radius:50%;
+  cursor:pointer;
+}
+.leftFooter >.icons > i:hover{
+  background:#0097c3;
+  color:white;
+}
+.adi{
+  position:relative;
+  left:-70px;
+  top:400px;
+  width:100px;
+  height:70px;
+}
+.adi > img{
+  height:70px;
+}
+
+/* Botón quitar equipo favoritos */
+
+/* 
+.buttons {
+  font-family: 'Roboto', sans-serif;
+font-weight: 400;
+  background: green;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.container { 
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1em;
+  text-align: center; 
+}
+
+p {
+color: blue;
+font-size: 12px;
+}  
+
+p a {
+  background: rgba(blue, 0);
+  border-bottom: 1px solid;
+  color: blue;
+  line-height: 1.4;
+  padding: .25em;
+  text-decoration: none;
+}
+
+p a:hover {
+background: rgba(blue, 1);
+color: green;
+}
+
+.btn {
+color: blue;
+cursor: pointer;
+
+font-size:16px;
+font-weight: 400;
+line-height: 45px;
+margin: 0 0 2em;
+max-width: 160px; 
+position: relative;
+text-decoration: none;
+text-transform: uppercase;
+width: 100%; 
+}
+
+
+
+.btn:hover { text-decoration: none; }
+
+.btn-1 {
+background: darken(green, 1.5%);
+font-weight: 100;
+}
+.btn-1  svg {
+  height: 45px;
+  left: 0;
+  position: absolute;
+  top: 0; 
+  width: 100%; 
+}
+
+.btn-1  rect {
+  fill: none;
+  stroke:blue;
+  stroke-width: 2;
+  stroke-dasharray: 422, 0;
+  transition: all 0.35s linear;
+}
+
+.btn-1:hover {
+background: rgba(green, 0);
+font-weight: 900;
+letter-spacing: 1px;
+}
+.btn-1:hover rect {
+  stroke-width: 5;
+  stroke-dasharray: 15, 310;
+  stroke-dashoffset: 48;
+  transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+  color: blue;
+} */

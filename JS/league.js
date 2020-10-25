@@ -41,14 +41,14 @@ fetch(url).then(function (respuesta) {
 /* Buscador de contenido */
 
 //Ejecutando funciones
-document.getElementById("icon-search").addEventListener("click", mostrar_buscador);
-document.getElementById("cover-ctn-search").addEventListener("click", ocultar_buscador);
+document.getElementById("iconSearch").addEventListener("click", mostrar_buscador);
+document.getElementById("contenedorPaginaSearch").addEventListener("click", ocultar_buscador);
 
 //Declarando variables
-bars_search = document.getElementById("ctn-bars-search");
-cover_ctn_search = document.getElementById("cover-ctn-search");
+bars_search = document.getElementById("contenedorBarraSearch");
+cover_ctn_search = document.getElementById("contenedorPaginaSearch");
 inputSearch = document.getElementById("inputSearch");
-box_search = document.getElementById("box-search");
+box_search = document.getElementById("boxSearch");
 
 
 //Funcion para mostrar el buscador
@@ -70,58 +70,25 @@ function ocultar_buscador() {
 }
 
 //Lista donde buscar (jugadores favoritos)
-let array = []
-array = JSON.parse(localStorage.getItem("eleccionFavoritos"))
-console.log(array)
-/* <li><a href="#"><img src="./Imagenes/lupa.png" height="10" onclick=entrar("Spain")>La Liga</a></li> */
-
-//Funcion para ir a la liga seleccionada
-function entrar(country) {
-    fetch(`https://api.sportsdata.io/v3/soccer/scores/json/Areas?key=${keyAPI}`).then(function (respuesta) {
-        return respuesta.json();
-    }).then(function (datos) {
-        if (datos.statusCode) {
-            window.alert(datos.message)
-        } else {
-            if (country == "Spain") {
-                location.href = './league.html'
-                localStorage.setItem("country", country)
-                localStorage.setItem("league", datos[17].Competitions[0].Name)
-                localStorage.setItem("CompetitionId", datos[17].Competitions[0].CompetitionId)
-            }
-            else if (country == "England") {
-                location.href = './league.html'
-                localStorage.setItem("country", country)
-                localStorage.setItem("league", datos[9].Competitions[0].Name)
-                localStorage.setItem("CompetitionId", datos[9].Competitions[0].CompetitionId)
-            }
-            else if (country == "France") {
-                location.href = './league.html'
-                localStorage.setItem("country", country)
-                localStorage.setItem("league", datos[10].Competitions[0].Name)
-                localStorage.setItem("CompetitionId", datos[10].Competitions[0].CompetitionId)
-            }
-            else if (country == "Italy") {
-                location.href = './league.html'
-                localStorage.setItem("country", country)
-                localStorage.setItem("league", datos[13].Competitions[0].Name)
-                localStorage.setItem("CompetitionId", datos[13].Competitions[0].CompetitionId)
-            }
-            else if (country == "Germany") {
-                location.href = './league.html'
-                localStorage.setItem("country", country)
-                localStorage.setItem("league", datos[11].Competitions[0].Name)
-                localStorage.setItem("CompetitionId", datos[11].Competitions[0].CompetitionId)
-            }
-            else if (country == "Netherland") {
-                location.href = './league.html'
-                localStorage.setItem("country", country)
-                localStorage.setItem("league", datos[15].Competitions[0].Name)
-                localStorage.setItem("CompetitionId", datos[15].Competitions[0].CompetitionId)
-            }
-        }
-    })
+let arrayBusqueda = []
+arrayBusqueda = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos"))
+listaBusqueda = ""
+for (let i = 0; i < arrayBusqueda.length; i++) {
+    listaBusqueda += `<li><a href="./jugador.html"><img src="./Imagenes/lupa.png" height="10" onclick=entrarJugador(${localStorage.setItem("jugadorSeleccionado", JSON.stringify(arrayBusqueda[i]))})>${arrayBusqueda[i].ShortName}</a></li>`
 }
+
+document.getElementById("boxSearch").innerHTML = listaBusqueda
+
+//Funcion ir a página de jugador
+
+function entrarJugador(playerId) {
+    for (let i = 0; i < arrayBusqueda.length; i++) {
+        if (playerId == arrayBusqueda[i].PlayerId) {
+            localStorage.setItem("jugadorSeleccionado", JSON.stringify(arrayBusqueda[i]))
+        }
+    }
+}
+
 
 //Creando filtrado de busqueda
 document.getElementById("inputSearch").addEventListener("keyup", buscador_interno);
@@ -189,7 +156,7 @@ function seleccion() {
                         }
                         if (estadio == datos.Teams[j].VenueId) {
                             estadio = datos.Teams[j].VenueName
-                        } else if (estadio == 95) {
+                        } else if (estadio == 95) {  //Esta condicion es debida a que actualmente el Real Madrid esta jugando en el estadio Di Stefano y no tiene Id en la API ese estadio
                             estadio = "Estadio Santiago Bernabeu"
                         }
                     }

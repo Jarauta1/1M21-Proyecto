@@ -404,32 +404,32 @@ function plantilla() {
 let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos")) //Miro si existe una variable guardada en localStorage
 if (arrayJugadoresFavoritos == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
     arrayJugadoresFavoritos = []
-    arrayJugadoresFavoritos = localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+    localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
 }
 
 //Declaro cuatro variables para hacer de contadores de jugadores metidos en favoritos (una por bloque de posiciones)
 let p = localStorage.getItem("porterosFavoritos") //Miro si existe una variable guardada en localStorage
 if (p == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
     p = 0
-    p = localStorage.setItem("porterosFavoritos", p)
+    localStorage.setItem("porterosFavoritos", p)
 }
 
 let d = localStorage.getItem("defensasFavoritos")
 if (d == null) {
     d = 0
-    d = localStorage.setItem("defensasFavoritos", d)
+    localStorage.setItem("defensasFavoritos", d)
 }
 
 let m = localStorage.getItem("mediosFavoritos")
 if (m == null) {
     m = 0
-    m = localStorage.setItem("mediosFavoritos", m)
+    localStorage.setItem("mediosFavoritos", m)
 }
 
 let a = localStorage.getItem("delanterosFavoritos")
 if (a == null) {
     a = 0
-    a = localStorage.setItem("delanterosFavoritos", a)
+    localStorage.setItem("delanterosFavoritos", a)
 }
 
 //Funcion para añadir jugadores a favoritos. Recibimos el indice del arrayIndices donde estan todos los jugadores de ese equipo, lo seleccionaremos con ese indice y lo pasaremos a nuestro "arrayJugadoresFavoritos con un push"
@@ -437,7 +437,7 @@ function addPortero(jugadorPortero) {
     let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos")) //Miro si existe una variable guardada en localStorage
     if (arrayJugadoresFavoritos == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
         arrayJugadoresFavoritos = []
-        arrayJugadoresFavoritos = localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     }
     p = localStorage.getItem("porterosFavoritos")
     if (p < 3) {
@@ -458,7 +458,7 @@ function addDefensa(jugadorDefensa) {
     let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos")) //Miro si existe una variable guardada en localStorage
     if (arrayJugadoresFavoritos == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
         arrayJugadoresFavoritos = []
-        arrayJugadoresFavoritos = localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     }
     d = localStorage.getItem("defensasFavoritos")
     if (d < 7) {
@@ -478,7 +478,7 @@ function addMedio(jugadorMedio) {
     let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos")) //Miro si existe una variable guardada en localStorage
     if (arrayJugadoresFavoritos == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
         arrayJugadoresFavoritos = []
-        arrayJugadoresFavoritos = localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     }
     m = localStorage.getItem("mediosFavoritos")
     if (m < 9) {
@@ -498,7 +498,7 @@ function addDelantero(jugadorDelantero) {
     let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos")) //Miro si existe una variable guardada en localStorage
     if (arrayJugadoresFavoritos == null) { //Si no existe, le doy un valor y la guardo en localStorage para empezar a utilizarla. Si existe, ya he obtenido su valor para utilizarlo en la linea de arriba
         arrayJugadoresFavoritos = []
-        arrayJugadoresFavoritos = localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
+        localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     }
     a = localStorage.getItem("delanterosFavoritos")
     if (a < 4) {
@@ -513,9 +513,6 @@ function addDelantero(jugadorDelantero) {
         window.alert("Ya tienes los cinco delanteros seleccionados")
     }
 }
-
-
-
 
 /* Footer */
 //Saco del almacenamiento local cuantos jugadores por posicion hemos seleccionado y los muestro en el footer
