@@ -1,5 +1,5 @@
 /* Key API */
-let keyAPI = `a4b5874dd1a64312a327ffc71e8ec755`
+let keyAPI = `80b2c3e7fd3e416d8693d50f7f4ebd21`
 
 //Declarando variables
 let teamId = localStorage.getItem("teamId")
@@ -34,7 +34,7 @@ fetch(url).then(function (respuesta) {
                 let name = `<title>${datos.Teams[i].Key}</title>`
                 document.getElementById("head").innerHTML = icon + name */
                 document.getElementById("escudoTeam").innerHTML = `<img id ="teamShield" src="${datos.Teams[i].WikipediaLogoUrl}" title="${datos.Teams[i].Name}" value="${datos.Teams[i].TeamId}" onerror ="this.onerror=null;this.src='./Imagenes/escudo.png'" width="" height ="">`
-                document.getElementById("nombreTeam").innerHTML = `<div><h1>${datos.Teams[i].FullName}</h1></div><h3>${datos.Teams[i].AreaName}</h3><div></div>`
+                document.getElementById("nombreTeam").innerHTML = `<div><h1>${datos.Teams[i].Name}</h1></div><h3>${datos.Teams[i].AreaName}</h3><div></div>`
                 let escudo = datos.Teams[i].WikipediaLogoUrl
                 let estadioId = datos.Teams[i].VenueId
                 let paisClub = datos.Teams[i].AreaName
@@ -442,11 +442,10 @@ function addPortero(jugadorPortero) {
     p = localStorage.getItem("porterosFavoritos")
     if (p < 3) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorPortero]) //De la tabla con todos los jugadores que creamos al generar su ficha, cojo los datos y los paso a otra tabla, la de favoritos
+        /* window.alert("Seleccionado") */
+        window.alert(`Has añadido a ${arrayJugadoresFavoritos[arrayJugadoresFavoritos.length-1].CommonName} a tu equipo. 
+        Porteros seleccionados: ${parseInt(p)+1}/3`)
         p++;
-        console.log(arrayJugadoresFavoritos)
-        window.alert("Seleccionado")
-        /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorPortero].ShortName} a tu equipo. 
-        Porteros seleccionados: ${p}/3`) */
         localStorage.setItem("porterosFavoritos", p)
         localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
@@ -463,11 +462,11 @@ function addDefensa(jugadorDefensa) {
     d = localStorage.getItem("defensasFavoritos")
     if (d < 7) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorDefensa])
+        /* window.alert("Seleccionado") */
+        window.alert(`Has añadido a ${arrayJugadoresFavoritos[arrayJugadoresFavoritos.length-1].CommonName} a tu equipo. 
+        Defensas seleccionados: ${parseInt(d)+1}/7`)
         d++;
-        window.alert("Seleccionado")
-        /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorDefensa].ShortName} a tu equipo. 
-        Porteros seleccionados: ${d}/7`) */
-        localStorage.setItem("d", d)
+        localStorage.setItem("defensasFavoritos", d)
         localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
         window.alert("Ya tienes los siete defensas seleccionados")
@@ -483,10 +482,10 @@ function addMedio(jugadorMedio) {
     m = localStorage.getItem("mediosFavoritos")
     if (m < 9) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorMedio])
+        /* window.alert("Seleccionado") */
+        window.alert(`Has añadido a ${arrayJugadoresFavoritos[arrayJugadoresFavoritos.length-1].CommonName} a tu equipo. 
+        Medios seleccionados: ${parseInt(m)+1}/9`)
         m++;
-        window.alert("Seleccionado")
-        /* window.alert(`Has añadido a ${arrayJugadoresFavoritos[jugadorMedio].ShortName} a tu equipo. 
-        Porteros seleccionados: ${m}/9`) */
         localStorage.setItem("mediosFavoritos", m)
         localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
@@ -503,14 +502,14 @@ function addDelantero(jugadorDelantero) {
     a = localStorage.getItem("delanterosFavoritos")
     if (a < 4) {
         arrayJugadoresFavoritos.push(arrayIndices[jugadorDelantero])
-        d++;
-        window.alert("Seleccionado")
-        /* window.alert(`Has añadido a ${arrayJugadoresDelantero[jugadorPortero].ShortName} a tu equipo. 
-        Porteros seleccionados: ${a}/4`) */
-        localStorage.setItem("delanterosFavoritos", d)
+       /*  window.alert("Seleccionado") */
+        window.alert(`Has añadido a ${arrayJugadoresFavoritos[arrayJugadoresFavoritos.length-1].CommonName} a tu equipo. 
+        Delanteros seleccionados: ${parseInt(a)+1}/4`)
+        a++;
+        localStorage.setItem("delanterosFavoritos", a)
         localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayJugadoresFavoritos))
     } else {
-        window.alert("Ya tienes los cinco delanteros seleccionados")
+        window.alert("Ya tienes los cuatro delanteros seleccionados")
     }
 }
 

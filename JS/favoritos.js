@@ -1,58 +1,69 @@
 let arrayJugadoresFavoritos = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos"))
-let aver
 console.log(arrayJugadoresFavoritos)
 let mensajePortero = ""
 let mensajeDefensa = ""
 let mensajeMedio = ""
 let mensajeDelantero = ""
 
-/* for (let i = 0; i < aver.length; i++) {
-  if (aver[i].Position == "GK") {
-    mensajePortero += `<li>
- <div draggable="true" data-player="J.Hart">
-   <img draggable="false" src="${aver[i].PhotoUrl}" width = "40" height ="45" />
-   <p>${aver[i].ShortName}</p>
+for (let i = 0; i < arrayJugadoresFavoritos.length; i++) {
+  if (arrayJugadoresFavoritos[i].Position == "GK") {
+    mensajePortero += `<ul class="jugadorCompleto" data-pos="gk">
+    <li>
+ <div draggable="true" data-player="">
+   <img draggable="false" src="${arrayJugadoresFavoritos[i].PhotoUrl}" width = "40" height ="45" />
+   <p>${arrayJugadoresFavoritos[i].ShortName}</p>
  </div>
  </li>
+ <div class="nombreFav">${arrayJugadoresFavoritos[i].CommonName}</div>
+</ul>
  `
   }
-  else if (aver[i].Position == "D") {
-    mensajeDefensa += `<li>
- <div draggable="true" data-player="J.Hart">
-   <img draggable="false" src="${aver[i].PhotoUrl}" width = "40" height ="45"/>
-   <p>${aver[i].ShortName}</p>
+  else if (arrayJugadoresFavoritos[i].Position == "D") {
+    mensajeDefensa += `<ul class="jugadorCompleto" data-pos="df">
+    <li>
+ <div draggable="true" data-player="">
+   <img draggable="false" src="${arrayJugadoresFavoritos[i].PhotoUrl}" width = "40" height ="45" />
+   <p>${arrayJugadoresFavoritos[i].ShortName}</p>
  </div>
  </li>
+ <div class="nombreFav">${arrayJugadoresFavoritos[i].CommonName}</div>
+</ul>
  `
   }
-  else if (aver[i].Position == "M") {
-    mensajeMedio += `<li>
- <div draggable="true" data-player="J.Hart">
-   <img draggable="false" src="${aver[i].PhotoUrl}" width = "40" height ="45"/>
-   <p>${aver[i].ShortName}</p>
+  else if (arrayJugadoresFavoritos[i].Position == "M") {
+    mensajeMedio += `<ul class="jugadorCompleto" data-pos="md">
+    <li>
+ <div draggable="true" data-player="">
+   <img draggable="false" src="${arrayJugadoresFavoritos[i].PhotoUrl}" width = "40" height ="45" />
+   <p>${arrayJugadoresFavoritos[i].ShortName}</p>
  </div>
  </li>
+ <div class="nombreFav">${arrayJugadoresFavoritos[i].CommonName}</div>
+</ul>
  `
   }
-  else if (aver[i].Position == "A") {
-    mensajeDelantero += `<li>
- <div draggable="true" data-player="J.Hart">
-   <img draggable="false" src="${aver[i].PhotoUrl}"width = "40" height ="45" />
-   <p>${aver[i].ShortName}</p>
+  else if (arrayJugadoresFavoritos[i].Position == "A") {
+    mensajeDelantero += `<ul class="jugadorCompleto" data-pos="fw">
+    <li>
+ <div draggable="true" data-player="">
+   <img draggable="false" src="${arrayJugadoresFavoritos[i].PhotoUrl}" width = "40" height ="45" />
+   <p>${arrayJugadoresFavoritos[i].ShortName}</p>
  </div>
  </li>
+ <div class="nombreFav">${arrayJugadoresFavoritos[i].CommonName}</div>
+</ul>
  `
   }
 }
 
-document.getElementById("porteros").innerHTML = mensajePortero
+document.getElementById("porteros11").innerHTML = mensajePortero
 
-  document.getElementById("defensas").innerHTML = mensajeDefensa
+  document.getElementById("defensas11").innerHTML = mensajeDefensa
 
-document.getElementById("medios").innerHTML = mensajeMedio
+document.getElementById("medios11").innerHTML = mensajeMedio
 
-document.getElementById("delanteros").innerHTML = mensajeDelantero
- */
+document.getElementById("delanteros11").innerHTML = mensajeDelantero
+
 
 //* ===================== é
 var wc_team = wc_team || {};

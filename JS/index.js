@@ -1,5 +1,5 @@
 /* Key API */
-let keyAPI = `a4b5874dd1a64312a327ffc71e8ec755`
+let keyAPI = `80b2c3e7fd3e416d8693d50f7f4ebd21`
 
 //Funcion para ir a la liga seleccionada
 function entrar(country) { //El string recibido se almacena en la variable "country"

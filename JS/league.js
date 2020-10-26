@@ -1,5 +1,5 @@
 /* Key API */
-let keyAPI = `a4b5874dd1a64312a327ffc71e8ec755`
+let keyAPI = `80b2c3e7fd3e416d8693d50f7f4ebd21`
 
 /* Header de la página */
 
@@ -73,20 +73,24 @@ function ocultar_buscador() {
 let arrayBusqueda = []
 arrayBusqueda = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos"))
 listaBusqueda = ""
-for (let i = 0; i < arrayBusqueda.length; i++) {
-    listaBusqueda += `<li><a href="./jugador.html"><img src="./Imagenes/lupa.png" height="10" onclick=entrarJugador(${localStorage.setItem("jugadorSeleccionado", JSON.stringify(arrayBusqueda[i]))})>${arrayBusqueda[i].ShortName}</a></li>`
+console.log(arrayBusqueda)
+if (arrayBusqueda != null) {
+    for (let k = 0; k < arrayBusqueda.length; k++) {
+        listaBusqueda += `<li><a href="./jugador.html" onclick=entrarJugador("${arrayBusqueda[k].PlayerId}")><img src="./Imagenes/lupa.png" height="10">${arrayBusqueda[k].CommonName}</a></li>`
+    }
 }
-
 document.getElementById("boxSearch").innerHTML = listaBusqueda
 
 //Funcion ir a página de jugador
 
 function entrarJugador(playerId) {
-    for (let i = 0; i < arrayBusqueda.length; i++) {
-        if (playerId == arrayBusqueda[i].PlayerId) {
-            localStorage.setItem("jugadorSeleccionado", JSON.stringify(arrayBusqueda[i]))
-        }
-    }
+    console.log(playerId)
+    /* for (let i = 0; i < arrayBusqueda.length; i++) {
+        if (playerId == arrayBusqueda[i].PlayerId) { */
+    localStorage.setItem("jugadorSeleccionado", playerId)
+    /*      location.href = './jugador.html' //Página a la que nos lleva la función
+     }
+ } */
 }
 
 

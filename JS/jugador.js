@@ -1,95 +1,113 @@
-let objectBusqueda = JSON.parse(localStorage.getItem("jugadorSeleccionado"))
-console.log(objectBusqueda)
+let playerId = localStorage.getItem("jugadorSeleccionado")
+let arrayCompleto = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos"))
+
+let objetBusqueda
+
+for (let i = 0; i < arrayCompleto.length; i++) {
+  if (playerId == arrayCompleto[i].PlayerId) {
+    objetBusqueda = arrayCompleto[i]
+  }
+}
+
+
 
 let posicion
 
-if (objectBusqueda.Position == "A") {
-    posicion = "Delantero"
+if (objetBusqueda.Position == "A") {
+  posicion = "Delantero"
 }
-else if (objectBusqueda.Position == "M") {
-    posicion = "Medio"
+else if (objetBusqueda.Position == "M") {
+  posicion = "Medio"
 }
-else if (objectBusqueda.Position == "D") {
-    posicion = "Defensa"
+else if (objetBusqueda.Position == "D") {
+  posicion = "Defensa"
 }
-else if (objectBusqueda.Position == "GK") {
-    posicion = "Portero"
+else if (objetBusqueda.Position == "GK") {
+  posicion = "Portero"
 }
 
-let dia = objectBusqueda.BirthDate.substring(8,10)
-let mes = objectBusqueda.BirthDate.substring(5,7)
-let anyo = objectBusqueda.BirthDate.substring(0,4)
+let dia = objetBusqueda.BirthDate.substring(8, 10)
+let mes = objetBusqueda.BirthDate.substring(5, 7)
+let anyo = objetBusqueda.BirthDate.substring(0, 4)
 
 document.getElementById("mainContainer").innerHTML = `
 <div class="content">
-          <div class="header">
-            <div class="logoHolder center">
-              <img src="${objectBusqueda.PhotoUrl}" alt="" border="0" />
-            </div>
-            <h1 class="title"><strong>${objectBusqueda.ShortName}</strong></h1>
-          </div>
-          <div class="bio center">
-          ${objectBusqueda.FirstName} ${objectBusqueda.LastName} es un futbolista profesional nacido en ${objectBusqueda.BirthCountry}.
-          </div>
-          <div class="position">
-            <div class="common">
-              <div>
-                <div class="header">DORSAL NO.</div>
-              </div>
-              <div>
-                <div class="header">POSICION</div>
-              </div>
-            </div>
-            <div class="common down">
-              <div>${objectBusqueda.Jersey}</div>
-              <div>${posicion}</div>
-            </div>
-          </div>
-          <div class="details">
-            <div class="header center">
-              INFORMACION
-            </div>
-            <div class="info">
-              <div class="left">
-                <div>Nombre</div>
-                <div>Apellidos</div>
-                <div>Fecha nacimiento</div>
-                <div>Ciudad nacimiento</div>
-                <div>Nacionalidad</div>
-                <div>Altura</div>
-                <div>Peso</div>
-              </div>
-              <div class="right">
-                <div>${objectBusqueda.FirstName}</div>
-                <div>${objectBusqueda.LastName}</div>
-                <div>${dia} de ${mes} de ${anyo}</div>
-                <div>${objectBusqueda.BirthCity}</div>
-                <div>${objectBusqueda.Nationality}</div>
-                <div>${objectBusqueda.Height} cm</div>
-                <div>${objectBusqueda.Weight} kg</div>
-              </div>
-            </div>
-          </div>
+    <div class="header">
+      <div class="logoHolder center">
+        <img src="${objetBusqueda.PhotoUrl}" alt="" border="0" />
+      </div>
+      <h1 class="title"><strong>${objetBusqueda.ShortName}</strong></h1>
+    </div>
+    <div class="bio center">
+      ${objetBusqueda.FirstName} ${objetBusqueda.LastName} es un futbolista profesional nacido en
+      ${objetBusqueda.BirthCountry}.
+    </div>
+    <div class="position">
+      <div class="common">
+        <div>
+          <div class="header">DORSAL NO.</div>
         </div>
-        <div class="imgHolder center">
-         <img src="" alt="" border="0" />
-        </div>
-        <div class="leftFooter">
-          <div class="icons">
-          <section class="buttons">
-          <div class="container">
-            <a href="" class="btn btn-1">
-              <svg>
-                <rect x="0" y="0" fill="none" width="100%" height="100%"/>
-              </svg>
-             Hover
-            </a>   
-          </div>
-        </section>
-          </div>
-          <div class="adi center">
-            <img src="" alt="" border="0" />
-          </div>
+        <div>
+          <div class="header">POSICION</div>
         </div>
       </div>
+      <div class="common down">
+        <div>${objetBusqueda.Jersey}</div>
+        <div>${posicion}</div>
+      </div>
+    </div>
+    <div class="informacion">
+      <div class="header center">
+        INFORMACION
+      </div>
+      <div class="info">
+        <div class="left">
+          <div>Nombre</div>
+          <div>Apellidos</div>
+          <div>Fecha nacimiento</div>
+          <div>Ciudad nacimiento</div>
+          <div>Nacionalidad</div>
+          <div>Altura</div>
+          <div>Peso</div>
+        </div>
+        <div class="right">
+          <div>${objetBusqueda.FirstName}</div>
+          <div>${objetBusqueda.LastName}</div>
+          <div>${dia} de ${mes} de ${anyo}</div>
+          <div>${objetBusqueda.BirthCity}</div>
+          <div>${objetBusqueda.Nationality}</div>
+          <div>${objetBusqueda.Height} cm</div>
+          <div>${objetBusqueda.Weight} kg</div>
+        </div>
+      </div>
+      <div class="botonFav center">
+        <a id="botonFav" class="botonQuitar" href="#" onclick="quitarFav()">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Quitar de mi equipo
+        </a>
+        <a class="volverFav" href="./league.html" onclick="">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Volver
+        </a>
+      </div>
+    </div>
+  </div>
 `
+
+function quitarFav() {
+  let arrayCompletoFav = JSON.parse(localStorage.getItem("arrayJugadoresFavoritos"))
+  for (let i = 0; i < arrayCompletoFav.length; i++) {
+    if (arrayCompletoFav[i].PlayerId == objetBusqueda.PlayerId) {
+      window.alert(`Has quitado de tu equipo a ${arrayCompletoFav[i].CommonName}`)
+      arrayCompletoFav.splice(i, 1)
+    }
+  }
+  localStorage.setItem("arrayJugadoresFavoritos", JSON.stringify(arrayCompletoFav))
+  location.href = './league.html' //Página a la que nos lleva la función
+}

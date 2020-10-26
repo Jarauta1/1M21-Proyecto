@@ -238,7 +238,7 @@ color: white;
   list-style: none;
 }
 
-#boxSearch li a:hover{
+#boxSearch li a img:hover{
   background: rgb(170,170,170,0.2);
   list-style: none;
 }
@@ -345,105 +345,6 @@ color: white;
   background-color: #a2f7ff;
 }
 
-/* @media screen and (max-width: 700px) {   
- table, tr, td { display: block; }
- 
- td {
-    &:first-child {
-       position: absolute;
-       top: 50%;
-       transform: translateY(-50%);
-       width: $imageBig;
-    }
-
-    &:not(:first-child) {
-       clear: both;
-       margin-left: $imageBig;
-       padding: 4px 20px 4px 90px;
-       position: relative;
-       text-align: left;
-
-       &:before {
-          color: lighten($baseColor, 30%);
-          content: '';
-          display: block;
-          left: 0;
-          position: absolute;
-       }
-    }
-
-    &:nth-child(2):before { content: 'Name:'; }
-    &:nth-child(3):before { content: 'Email:'; }
-    &:nth-child(4):before { content: 'Phone:'; }
-    &:nth-child(5):before { content: 'Comments:'; }
- }
- 
- tr {
-    padding: $padding 0;
-    position: relative;
-    &:first-child { display: none; }
- }
-} */
-
-/* @media screen and (max-width: 500px) {
- .header {
-    background-color: transparent;
-    color: lighten($baseColor, 60%);
-    font-size: 2em;
-    font-weight: 700;
-    padding: 0;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
- }
- 
- img {
-    border: 3px solid;
-    border-color: lighten($baseColor, 50%);
-    height: $imageBig;
-    margin: 0.5rem 0;
-    width: $imageBig;
- }
- 
- td {
-    &:first-child { 
-       background-color: lighten($baseColor, 45%); 
-       border-bottom: 1px solid lighten($baseColor, 30%);
-       border-radius: $borderRadius $borderRadius 0 0;
-       position: relative;   
-       top: 0;
-       transform: translateY(0);
-       width: 100%;
-    }
-    
-    &:not(:first-child) {
-       margin: 0;
-       padding: 5px 1em;
-       width: 100%;
-       
-       &:before {
-          font-size: .8em;
-          padding-top: 0.3em;
-          position: relative;
-       }
-    }
-    
-    &:last-child  { padding-bottom: 1rem !important; }
- }
- 
- tr {
-    background-color: white !important;
-    border: 1px solid lighten($baseColor, 20%);
-    border-radius: $borderRadius;
-    box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
-    margin: 0.5rem 0;
-    padding: 0;
- }
- 
- .table-users { 
-    border: none; 
-    box-shadow: none;
-    overflow: visible;
- }
-} */
 
 
 /* Acordeon liga para resultados y clasificacion */
@@ -1047,7 +948,7 @@ display: flex;
   list-style: none;
   padding: 0;
   margin-left: 10px;
-
+  color: rgb(151, 161, 112)
 }
 
 #clubTeam li::before, #estadioTeam li::before, #estadisticasTeam li::before {
@@ -1101,9 +1002,12 @@ display: flex;
 
 
 
-/*  */
+/* --------------------- */
 /* Campo equipo favorito */
-/*  */
+/* --------------------- */
+
+
+
 * {
 box-sizing: border-box;
 }
@@ -1115,10 +1019,6 @@ padding: 0;
 margin: 0;
 background: #09121b;
 font-family: 'Open Sans', helvetica, arial, sans-serif;
-}
-
-#hazAlineacion {
-width: 20%;
 }
 
 .player {
@@ -1311,6 +1211,12 @@ section {
   box-shadow: 0 0 5px 2px #000;
   border: 1px solid #fff;
 }
+
+.headerAlineacion {
+  display: flex;
+  justify-content: space-between;
+}
+
 section a {
   display: block;
   clear: left;
@@ -1320,8 +1226,10 @@ section a {
 section ul {
   padding: 0px;
   margin: 0px;
-  width: 100%;
   clear: left;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
 }
 section ul li {
   width: 40px;
@@ -1333,6 +1241,34 @@ section ul li {
   float: left;
   box-shadow: 0px 2px 2px 0px #999;
 }
+
+#porteros11 {
+  display: flex;
+  flex-wrap: wrap;
+}
+#defensas11 {
+  display: flex;
+  flex-wrap: wrap;
+}
+#medios11 {
+  display: flex;
+  flex-wrap: wrap;
+}
+#delanteros11 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.jugadorCompleto {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+.nombreFav {
+  display: flex;
+  justify-content: center;
+}
+
 section ul li div img {
   margin-top: -5px;
 }
@@ -1449,51 +1385,43 @@ ul#starting_11 .selected img {
 /* Página Jugador Favorito */
 /* ----------------------- */
 
-.bodyFav {
+#mainContainer {
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 100%;
 }
 
-#mainContainer{
+.content {
+  width: 100%;
+  height: 100%;
   font-family: 'Arimo', sans-serif;
-  width:50%;
-  height:650px;
-  margin:0 auto;
-  margin-top:100px;
-  box-shadow: 0 0 15px #2323;
-  display:flex;
+    display:flex;
+  flex-direction: column;
+  justify-content: center;
   align-items:center; 
   padding:8px 20px;
 }
-.center{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-.imgHolder{
-  height:900px;
-  position:relative;
-  left:70px;
-}
-.imgHolder >img{
-  height:850px;
-}
+
 .content{
   height:600px;
   width:400px;
   margin-left:10px;
 }
+
 .content > .header{
   height:90px;
   display:flex;
   align-items:center;
   padding-left:20px;
 }
+
 .content > .header > .logoHolder{
   height:70px;
   width:70px;
   margin-right:20px;
 }
+
 .content > .header > .logoHolder > img{
   height:65px;
 }
@@ -1509,16 +1437,22 @@ ul#starting_11 .selected img {
   font-weight:bolder;
   font-size:14px;
 }
-.details{
+
+.common div {
+  display:flex;
+  justify-content: center;
+}
+
+.informacion {
   width:320px;
   height:250px;
   margin:0 auto;
   margin-top:8px;
 }
-.details > .header{
+.informacion > .header{
   padding:8px;
   background:#0097c3;
-  width:90px;
+  width:120px;
   color:white;
   letter-spacing:2px;
   font-size:12px;
@@ -1616,95 +1550,142 @@ ul#starting_11 .selected img {
 
 /* Botón quitar equipo favoritos */
 
-/* 
-.buttons {
-  font-family: 'Roboto', sans-serif;
-font-weight: 400;
-  background: green;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
+.botonFav {
+display: flex;
+justify-content: center;
 }
 
-.container { 
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 1em;
-  text-align: center; 
-}
-
-p {
-color: blue;
-font-size: 12px;
-}  
-
-p a {
-  background: rgba(blue, 0);
-  border-bottom: 1px solid;
-  color: blue;
-  line-height: 1.4;
-  padding: .25em;
+.botonQuitar, .volverFav {
+  position: relative;
+  display: inline-block;
+  padding: 20px 30px;
+  margin: 10px 0px 30px 0px;
+  color:#368caf;
   text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  letter-spacing: 2px;
+  overflow: hidden;
+  margin-right: 50px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  width: 150px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-p a:hover {
-background: rgba(blue, 1);
-color: green;
+.botonQuitar:hover, .volverFav:hover {
+  background:#368caf;
+  color: white;
+  box-shadow: 0 0 5px #368caf,
+              0 0 25px #368caf,
+              0 0 50px #368caf,
+              0 0 200px #368caf;
+              /* La siguiente línea hace modo reflefo (solo se ve en Chrome, Opera, Safari y Edge. En Mozilla no */
+   -webkit-box-reflect:below 1px linear-gradient(transparent, #0005);
 }
 
-.btn {
-color: blue;
-cursor: pointer;
-
-font-size:16px;
-font-weight: 400;
-line-height: 45px;
-margin: 0 0 2em;
-max-width: 160px; 
-position: relative;
-text-decoration: none;
-text-transform: uppercase;
-width: 100%; 
+.botonQuitar:nth-child(1){
+  filter: hue-rotate(270deg);
 }
 
-
-
-.btn:hover { text-decoration: none; }
-
-.btn-1 {
-background: darken(green, 1.5%);
-font-weight: 100;
+.volverFav:nth-child(1){
+  filter: hue-rotate(270deg);
 }
-.btn-1  svg {
-  height: 45px;
-  left: 0;
+
+.botonQuitar:nth-child(2){
+  filter: hue-rotate(110deg);
+}
+
+.volverFav:nth-child(2){
+  filter: hue-rotate(110deg);
+}
+
+.botonQuitar span{
   position: absolute;
-  top: 0; 
-  width: 100%; 
+  display: block;
 }
 
-.btn-1  rect {
-  fill: none;
-  stroke:blue;
-  stroke-width: 2;
-  stroke-dasharray: 422, 0;
-  transition: all 0.35s linear;
+.volverFav span{
+  position: absolute;
+  display: block;
 }
 
-.btn-1:hover {
-background: rgba(green, 0);
-font-weight: 900;
-letter-spacing: 1px;
+.botonQuitar span:nth-child(1), .volverFav span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,transparent,#368caf);
+  animation: animate1 1s linear infinite;
 }
-.btn-1:hover rect {
-  stroke-width: 5;
-  stroke-dasharray: 15, 310;
-  stroke-dashoffset: 48;
-  transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
-  color: blue;
-} */
+
+@keyframes animate1{
+  0%{
+      left: -100%;
+  }
+  50%,100%{
+      left: 100%;
+  }
+}
+
+.botonQuitar span:nth-child(2), .volverFav span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg,transparent,#368caf);
+  animation: animate2 1s linear infinite;
+  animation-delay: 0.25s;
+}
+
+@keyframes animate2{
+  0%{
+      top: -100%;
+  }
+  50%,100%{
+      top: 100%;
+  }
+}
+
+.botonQuitar span:nth-child(3), .volverFav span:nth-child(3) {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg,transparent,#368caf);
+  animation: animate3 1s linear infinite;
+  animation-delay: 0.50s;
+}
+
+@keyframes animate3{
+  0%{
+      right: -100%;
+  }
+  50%,100%{
+      right: 100%;
+  }
+}
+
+
+.botonQuitar span:nth-child(4), .volverFav span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg,transparent,#368caf);
+  animation: animate4 1s linear infinite;
+  animation-delay: 0.75s;
+}
+
+@keyframes animate4{
+  0%{
+      bottom: -100%;
+  }
+  50%,100%{
+      bottom: 100%;
+  }
+}
